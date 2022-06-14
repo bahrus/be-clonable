@@ -1,8 +1,24 @@
 {
   "name": "be-clonable",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements",
+    "clone"
+  ],
+  "description": "Adds a button to any element that allows the element to be cloned.",
+  "main": "be-clonable.js",
+  "module": "be-clonable.js",
+  "exports":{
+    ".": "./be-clonable.js",
+    "./be-clonable.js": "./be-clonable.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "types.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node node_modules/may-it-serve/serve.js",
@@ -20,7 +36,7 @@
     "type": "git",
     "url": "git+https://github.com/bahrus/be-clonable.git"
   },
-  "author": "",
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahrus/be-clonable/issues"
