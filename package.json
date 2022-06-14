@@ -1,6 +1,6 @@
 {
   "name": "be-clonable",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "web-components",
     "web-component",
@@ -11,7 +11,7 @@
   "description": "Adds a button to any element that allows the element to be cloned.",
   "main": "be-clonable.js",
   "module": "be-clonable.js",
-  "exports":{
+  "exports": {
     ".": "./be-clonable.js",
     "./be-clonable.js": "./be-clonable.js"
   },
