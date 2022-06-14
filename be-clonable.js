@@ -51,6 +51,19 @@ export class BeClonable {
     }
     handleClick = (e) => {
         const clone = this.proxy.cloneNode(true);
+        const elements = Array.from(clone.querySelectorAll('*'));
+        elements.push(clone);
+        for (const el of elements) {
+            for (const a of el.attributes) {
+                //TODO:  use behive - some attributes starting wit is- might not be bedeocrated
+                if (a.name.startsWith('is-')) {
+                    const val = a.value;
+                    el.removeAttribute(a.name);
+                    el.setAttribute(a.name.replace('is-', 'be-'), val);
+                }
+                console.log(a.name, a.value);
+            }
+        }
         this.proxy.insertAdjacentElement(this.proxy.cloneInsertPosition, clone);
     };
 }
