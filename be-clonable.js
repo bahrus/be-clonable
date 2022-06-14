@@ -1,45 +1,41 @@
-import {register} from 'be-hive/register.js';
-import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeClonableActions, BeClonableProps} from './types';
-
-export class BeClonable implements BeClonableActions{
-    #trigger: HTMLButtonElement | undefined;
-    intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
+import { register } from 'be-hive/register.js';
+import { define } from 'be-decorated/be-decorated.js';
+export class BeClonable {
+    #trigger;
+    intro(proxy, target, beDecorProps) {
     }
-    finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
-
+    finale(proxy, target, beDecorProps) {
     }
-    onTriggerInsertPosition({text, triggerInsertPosition}: this): void{
-        if(this.#trigger === undefined){
-            switch(triggerInsertPosition){
+    onTriggerInsertPosition({ text, triggerInsertPosition }) {
+        if (this.#trigger === undefined) {
+            switch (triggerInsertPosition) {
                 case 'afterbegin':
                 case 'beforeend':
                     {
                         const trigger = this.proxy.querySelector('button.be-clonable-trigger');
-                        if(trigger !== null){
-                            this.#trigger = trigger as HTMLButtonElement;
+                        if (trigger !== null) {
+                            this.#trigger = trigger;
                         }
                     }
                     break;
                 case 'beforebegin':
                     {
                         const trigger = this.proxy.previousElementSibling;
-                        if(trigger !== null && trigger.matches('button.be-clonable-trigger')){
-                            this.#trigger = trigger as HTMLButtonElement;
+                        if (trigger !== null && trigger.matches('button.be-clonable-trigger')) {
+                            this.#trigger = trigger;
                         }
                     }
                     break;
                 case 'afterend':
                     {
                         const trigger = this.proxy.nextElementSibling;
-                        if(trigger !== null && trigger.matches('button.be-clonable-trigger')){
-                            this.#trigger = trigger as HTMLButtonElement;
+                        if (trigger !== null && trigger.matches('button.be-clonable-trigger')) {
+                            this.#trigger = trigger;
                         }
                     }
                     break;
-
             }
-            if(this.#trigger === undefined){
+            if (this.#trigger === undefined) {
                 this.#trigger = document.createElement('button');
                 this.#trigger.classList.add('be-delible-trigger');
             }
@@ -47,52 +43,42 @@ export class BeClonable implements BeClonableActions{
             this.#trigger.addEventListener('click', this.handleClick);
             this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
         }
-
     }
-
-    onText({text}: this): void{
-        if(this.#trigger !== undefined){
-            this.#trigger.innerHTML = text;//TODO:  sanitize
+    onText({ text }) {
+        if (this.#trigger !== undefined) {
+            this.#trigger.innerHTML = text; //TODO:  sanitize
         }
     }
-
-    handleClick = (e: Event) => {
-        const clone = this.proxy.cloneNode(true) as Element;
+    handleClick = (e) => {
+        const clone = this.proxy.cloneNode(true);
         this.proxy.insertAdjacentElement(this.proxy.cloneInsertPosition, clone);
-    }
+    };
 }
-
-export interface BeClonable extends BeClonableProps{}
-
 const tagName = 'be-clonable';
-
 const ifWantsToBe = 'clonable';
-
 const upgrade = '*';
-
-define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, BeClonableActions>({
-    config:{
+define({
+    config: {
         tagName,
-        propDefaults:{
+        propDefaults: {
             ifWantsToBe,
             upgrade,
             virtualProps: ['triggerInsertPosition', 'text'],
             intro: 'intro',
             finale: 'finale',
-            proxyPropDefaults:{
+            proxyPropDefaults: {
                 triggerInsertPosition: 'beforeend',
                 cloneInsertPosition: 'afterend',
                 text: '&#10063;'
             }
         },
-        actions:{
+        actions: {
             onTriggerInsertPosition: 'triggerInsertPosition',
             onText: 'text',
         }
     },
-    complexPropDefaults:{
+    complexPropDefaults: {
         controller: BeClonable
     }
 });
-
 register(ifWantsToBe, upgrade, tagName);
