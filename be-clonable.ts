@@ -41,7 +41,7 @@ export class BeClonable implements BeClonableActions{
             }
             if(this.#trigger === undefined){
                 this.#trigger = document.createElement('button');
-                this.#trigger.classList.add('be-delible-trigger');
+                this.#trigger.classList.add('be-clonable-trigger');
             }
             this.onText(this);
             this.#trigger.addEventListener('click', this.handleClick);
