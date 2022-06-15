@@ -6,7 +6,7 @@ export class BeClonable {
     }
     finale(proxy, target, beDecorProps) {
     }
-    onTriggerInsertPosition({ text, triggerInsertPosition }) {
+    async onTriggerInsertPosition({ text, triggerInsertPosition, then }) {
         if (this.#trigger === undefined) {
             switch (triggerInsertPosition) {
                 case 'afterbegin':
@@ -42,6 +42,10 @@ export class BeClonable {
             }
             this.onText(this);
             this.#trigger.addEventListener('click', this.handleClick);
+            if (then !== undefined) {
+                const { doThen } = await import('be-decorated/doThen.js');
+                doThen(this.proxy, then);
+            }
         }
     }
     onText({ text }) {
@@ -76,7 +80,7 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['triggerInsertPosition', 'text'],
+            virtualProps: ['triggerInsertPosition', 'text', 'then'],
             intro: 'intro',
             finale: 'finale',
             proxyPropDefaults: {

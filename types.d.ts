@@ -4,6 +4,7 @@ export interface BeClonableVirtualProps {
     triggerInsertPosition: InsertPosition;
     cloneInsertPosition: InsertPosition;
     text: string;
+    then: string | any[] | any;
 }
 
 export interface BeClonableProps extends BeClonableVirtualProps{

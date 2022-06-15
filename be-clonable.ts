@@ -9,7 +9,7 @@ export class BeClonable implements BeClonableActions{
     finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
 
     }
-    onTriggerInsertPosition({text, triggerInsertPosition}: this): void{
+    async onTriggerInsertPosition({text, triggerInsertPosition, then}: this): void{
         if(this.#trigger === undefined){
             switch(triggerInsertPosition){
                 case 'afterbegin':
@@ -46,7 +46,10 @@ export class BeClonable implements BeClonableActions{
             }
             this.onText(this);
             this.#trigger.addEventListener('click', this.handleClick);
-            
+            if(then !== undefined){
+                const {doThen} = await import('be-decorated/doThen.js');
+                doThen(this.proxy, then);
+            }
         }
 
     }
@@ -90,7 +93,7 @@ define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, B
         propDefaults:{
             ifWantsToBe,
             upgrade,
-            virtualProps: ['triggerInsertPosition', 'text'],
+            virtualProps: ['triggerInsertPosition', 'text', 'then'],
             intro: 'intro',
             finale: 'finale',
             proxyPropDefaults:{
