@@ -42,10 +42,11 @@ export class BeClonable implements BeClonableActions{
             if(this.#trigger === undefined){
                 this.#trigger = document.createElement('button');
                 this.#trigger.classList.add('be-clonable-trigger');
+                this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
             }
             this.onText(this);
             this.#trigger.addEventListener('click', this.handleClick);
-            this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
+            
         }
 
     }
