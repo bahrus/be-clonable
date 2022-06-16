@@ -21,5 +21,9 @@ If the server can be trained to recognize this attribute, it can generate the bu
 </label>
 ```
 
+In fact, it is better from a performance point of view to manually add the button to go along with the attribute, to save the browser from having to exert itself in this way
+
 The button as well as the event handler can be attached during template instantiation as well, if using the trans-render library [TODO].
+
+
 
