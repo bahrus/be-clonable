@@ -1,75 +1,25 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/be-decorated.js';
+import { IsoHelper, proxyPropDefaults } from './IsoHelper.js';
 export class BeClonable {
-    #trigger;
-    intro(proxy, target, beDecorProps) {
+    #iso;
+    intro(proxy, target, beDecorProps) { }
+    finale(proxy, target, beDecorProps) { }
+    resume(proxy, target, beDecorProps, isoHelper) {
+        this.#iso = isoHelper;
     }
-    finale(proxy, target, beDecorProps) {
-    }
-    async onTriggerInsertPosition({ text, triggerInsertPosition, then }) {
-        if (this.#trigger === undefined) {
-            switch (triggerInsertPosition) {
-                case 'afterbegin':
-                case 'beforeend':
-                    {
-                        const trigger = this.proxy.querySelector('button.be-clonable-trigger');
-                        if (trigger !== null) {
-                            this.#trigger = trigger;
-                        }
-                    }
-                    break;
-                case 'beforebegin':
-                    {
-                        const trigger = this.proxy.previousElementSibling;
-                        if (trigger !== null && trigger.matches('button.be-clonable-trigger')) {
-                            this.#trigger = trigger;
-                        }
-                    }
-                    break;
-                case 'afterend':
-                    {
-                        const trigger = this.proxy.nextElementSibling;
-                        if (trigger !== null && trigger.matches('button.be-clonable-trigger')) {
-                            this.#trigger = trigger;
-                        }
-                    }
-                    break;
-            }
-            if (this.#trigger === undefined) {
-                this.#trigger = document.createElement('button');
-                this.#trigger.classList.add('be-clonable-trigger');
-                this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
-            }
-            this.onText(this);
-            this.#trigger.addEventListener('click', this.handleClick);
-            if (then !== undefined) {
-                const { doThen } = await import('be-decorated/doThen.js');
-                doThen(this.proxy, then);
-            }
+    async onTriggerInsertPosition(self) {
+        if (this.#iso === undefined) {
+            this.#iso = new IsoHelper(self.proxy);
         }
+        this.#iso.onTriggerInsertPosition(self);
     }
-    onText({ text }) {
-        if (this.#trigger !== undefined) {
-            this.#trigger.innerHTML = text; //TODO:  sanitize
+    onText(self) {
+        if (this.#iso === undefined) {
+            this.#iso = new IsoHelper(self.proxy);
         }
+        this.#iso.onText(self);
     }
-    handleClick = (e) => {
-        const clone = this.proxy.cloneNode(true);
-        const elements = Array.from(clone.querySelectorAll('*'));
-        elements.push(clone);
-        for (const el of elements) {
-            for (const a of el.attributes) {
-                //TODO:  use behive - some attributes starting wit is- might not be bedeocrated
-                if (a.name.startsWith('is-')) {
-                    const val = a.value;
-                    el.removeAttribute(a.name);
-                    el.setAttribute(a.name.replace('is-', 'be-'), val);
-                }
-                console.log(a.name, a.value);
-            }
-        }
-        this.proxy.insertAdjacentElement(this.proxy.cloneInsertPosition, clone);
-    };
 }
 const tagName = 'be-clonable';
 const ifWantsToBe = 'clonable';
@@ -83,11 +33,8 @@ define({
             virtualProps: ['triggerInsertPosition', 'text', 'then'],
             intro: 'intro',
             finale: 'finale',
-            proxyPropDefaults: {
-                triggerInsertPosition: 'beforeend',
-                cloneInsertPosition: 'afterend',
-                text: '&#10063;'
-            }
+            resume: 'resume',
+            proxyPropDefaults
         },
         actions: {
             onTriggerInsertPosition: 'triggerInsertPosition',
