@@ -13,7 +13,7 @@ export const trPlugin: TransformPluginSettings = {
             const params = JSON.parse(val) as BeClonableVirtualProps;
             Object.assign(defaults, params);
         }
-        const isoHelper = new IsoHelper(target, defaults);
+        const isoHelper = new IsoHelper(target!, defaults);
 
     }
 }

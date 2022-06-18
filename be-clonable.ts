@@ -13,7 +13,7 @@ export class BeClonable implements BeClonableActions{
     }
     async onTriggerInsertPosition(self: this){
         if(this.#iso === undefined){
-            this.#iso = new IsoHelper(self.proxy);
+            this.#iso = new IsoHelper(self.proxy, self.proxy);
         }
         this.#iso.onTriggerInsertPosition(self);
 
@@ -21,7 +21,7 @@ export class BeClonable implements BeClonableActions{
 
     onText(self: this): void{
         if(this.#iso === undefined){
-            this.#iso = new IsoHelper(self.proxy);
+            this.#iso = new IsoHelper(self.proxy, self.proxy);
         }
         this.#iso.onText(self);
     }

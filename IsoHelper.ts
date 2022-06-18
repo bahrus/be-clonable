@@ -9,7 +9,7 @@ export class IsoHelper{
         }
     }
 
-    async onTriggerInsertPosition({text, triggerInsertPosition, then}: BeClonableProps){
+    async onTriggerInsertPosition({text, triggerInsertPosition, then}: BeClonableVirtualProps){
         if(this.#trigger === undefined){
             const trigger = findAdjacentElement(triggerInsertPosition, this.proxy, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;

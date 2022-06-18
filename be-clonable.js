@@ -10,13 +10,13 @@ export class BeClonable {
     }
     async onTriggerInsertPosition(self) {
         if (this.#iso === undefined) {
-            this.#iso = new IsoHelper(self.proxy);
+            this.#iso = new IsoHelper(self.proxy, self.proxy);
         }
         this.#iso.onTriggerInsertPosition(self);
     }
     onText(self) {
         if (this.#iso === undefined) {
-            this.#iso = new IsoHelper(self.proxy);
+            this.#iso = new IsoHelper(self.proxy, self.proxy);
         }
         this.#iso.onText(self);
     }
