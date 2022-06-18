@@ -1,7 +1,7 @@
 import {RenderContext, TransformPluginSettings} from 'trans-render/lib/types';
 import {register} from 'trans-render/lib/pluginMgr.js';
 import {BeClonableVirtualProps} from './types';
-import {proxyPropDefaults} from './be-clonable.js';
+import {proxyPropDefaults} from './IsoLogic.js';
 
 export const trPlugin: TransformPluginSettings = {
     selector: 'beClonableAttribs',

@@ -1,7 +1,7 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeClonableActions, BeClonableProps, BeClonableVirtualProps} from './types';
-import {IsoLogic} from './IsoLogic.js';
+import {IsoLogic, proxyPropDefaults} from './IsoLogic.js';
 
 export class BeClonable implements BeClonableActions{
     #iso!: IsoLogic;
@@ -30,11 +30,7 @@ const ifWantsToBe = 'clonable';
 
 const upgrade = '*';
 
-export const proxyPropDefaults: BeClonableVirtualProps = {
-    triggerInsertPosition: 'beforeend',
-    cloneInsertPosition: 'afterend',
-    text: '&#10063;'
-}
+
 
 define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, BeClonableActions>({
     config:{

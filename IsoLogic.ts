@@ -1,4 +1,5 @@
-import {BeClonableProps} from './types';
+import {BeClonableProps, BeClonableVirtualProps} from './types';
+
 export class IsoLogic{
     #trigger: HTMLButtonElement | undefined;
     constructor(public proxy: Element & BeClonableProps){}
@@ -71,4 +72,10 @@ export class IsoLogic{
         }
         this.proxy.insertAdjacentElement(this.proxy.cloneInsertPosition, clone);
     }
+}
+
+export const proxyPropDefaults: BeClonableVirtualProps = {
+    triggerInsertPosition: 'beforeend',
+    cloneInsertPosition: 'afterend',
+    text: '&#10063;'
 }
