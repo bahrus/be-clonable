@@ -1,6 +1,6 @@
 # be-clonable
 
-be-clonable adds a button to any element that allows the element to be cloned.
+be-clonable is a web component decorator, that adds or hydrates a triggering button, and enables that button to clone the adorned element.
 
 ## Syntax
 
@@ -11,7 +11,7 @@ be-clonable adds a button to any element that allows the element to be cloned.
 </label>
 ```
 
-If the server can be trained to recognize this attribute, it can generate the button ahead of time with class be-clonable-trigger, and be-clonable will use the server-created button.
+In fact, it is a little better from a performance point of view to manually add the button to go along with the attribute, to save the browser or server from having to render it.
 
 ```html
 <label be-clonable>
@@ -21,7 +21,7 @@ If the server can be trained to recognize this attribute, it can generate the bu
 </label>
 ```
 
-In fact, it is better from a performance point of view to manually add the button to go along with the attribute, to save the browser from having to exert itself in this way
+
 
 The button as well as the event handler can be attached during template instantiation as well, if using the trans-render library [TODO].
 
