@@ -1,23 +1,28 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeClonableActions, BeClonableProps, BeClonableVirtualProps} from './types';
-import {IsoLogic, proxyPropDefaults} from './IsoLogic.js';
+import {IsoHelper, proxyPropDefaults} from './IsoHelper.js';
 
 export class BeClonable implements BeClonableActions{
-    #iso!: IsoLogic;
+    #iso!: IsoHelper;
 
-    intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
-        this.#iso = new IsoLogic(proxy);
-    }
-    finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
-        
+    intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
+    finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
+    resume(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, isoHelper: any): void {
+        this.#iso = isoHelper;
     }
     async onTriggerInsertPosition(self: this){
+        if(this.#iso === undefined){
+            this.#iso = new IsoHelper(self.proxy);
+        }
         this.#iso.onTriggerInsertPosition(self);
 
     }
 
     onText(self: this): void{
+        if(this.#iso === undefined){
+            this.#iso = new IsoHelper(self.proxy);
+        }
         this.#iso.onText(self);
     }
 }
@@ -41,6 +46,7 @@ define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, B
             virtualProps: ['triggerInsertPosition', 'text', 'then'],
             intro: 'intro',
             finale: 'finale',
+            resume: 'resume',
             proxyPropDefaults
         },
         actions:{
