@@ -3,7 +3,7 @@ import {findAdjacentElement} from 'be-decorated/findAdjacentElement.js';
 
 export class IsoHelper{
     #trigger: HTMLButtonElement | undefined;
-    constructor(public proxy: Element, public props: BeClonableProps){
+    constructor(public proxy: Element, public props: BeClonableVirtualProps){
         if(props === undefined) {
             this.props = proxy as any as BeClonableProps;
         }
@@ -28,7 +28,7 @@ export class IsoHelper{
 
     }
 
-    onText({text}: BeClonableProps): void{
+    onText({text}: BeClonableVirtualProps): void{
         if(this.#trigger !== undefined){
             this.#trigger.innerHTML = text;//TODO:  sanitize
         }

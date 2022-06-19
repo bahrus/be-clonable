@@ -9,7 +9,7 @@
 		"watch": true
 	},
 	"files": [
-		"be-clonable.ts"
+		"index.ts"
 	],
 	"exclude":[
 		"build",
