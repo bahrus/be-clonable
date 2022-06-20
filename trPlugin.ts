@@ -7,7 +7,7 @@ import {isoStorage} from 'be-decorated/isoStorage.js';
 export const trPlugin: TransformPluginSettings = {
     selector: 'beClonableAttribs',
     ready: true,
-    processor:  ({target, val, attrib, host}: RenderContext) => {
+    processor:  async ({target, val, attrib, host}: RenderContext) => {
         let defaults = proxyPropDefaults;
         if(val){
             const params = JSON.parse(val) as BeClonableVirtualProps;

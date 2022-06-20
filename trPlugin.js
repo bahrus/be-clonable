@@ -3,7 +3,7 @@ import { proxyPropDefaults, IsoHelper } from './IsoHelper.js';
 export const trPlugin = {
     selector: 'beClonableAttribs',
     ready: true,
-    processor: ({ target, val, attrib, host }) => {
+    processor: async ({ target, val, attrib, host }) => {
         let defaults = proxyPropDefaults;
         if (val) {
             const params = JSON.parse(val);
