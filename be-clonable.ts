@@ -1,29 +1,29 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeClonableActions, BeClonableProps, BeClonableVirtualProps} from './types';
-import {IsoHelper, proxyPropDefaults} from './IsoHelper.js';
+import {Cloner, proxyPropDefaults} from './Cloner.js';
 
 export class BeClonable implements BeClonableActions{
-    #iso!: IsoHelper;
+    #cloner!: Cloner;
 
     intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
     finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
-    batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, isoHelper: any): void {
-        this.#iso = isoHelper;
+    batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, baton: any): void {
+        this.#cloner = baton;
     }
     async onTriggerInsertPosition(self: this){
-        if(this.#iso === undefined){
-            this.#iso = new IsoHelper(self.proxy, self.proxy);
+        if(this.#cloner === undefined){
+            this.#cloner = new Cloner(self.proxy, self.proxy);
         }
-        this.#iso.onTriggerInsertPosition(self);
+        this.#cloner.addCloneButtonTrigger(self);
 
     }
 
     onText(self: this): void{
-        if(this.#iso === undefined){
-            this.#iso = new IsoHelper(self.proxy, self.proxy);
+        if(this.#cloner === undefined){
+            this.#cloner = new Cloner(self.proxy, self.proxy);
         }
-        this.#iso.onText(self);
+        this.#cloner.setText(self);
     }
 }
 

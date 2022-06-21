@@ -13,7 +13,7 @@ export interface BeClonableProps extends BeClonableVirtualProps{
 
 export interface BeClonableActions{
     intro(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
-    batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps, isoHelper: any): void;
+    batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps, baton: any): void;
     finale(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
     onTriggerInsertPosition(self: this): void;
     onText(self: this): void;

@@ -1,5 +1,5 @@
 import { register } from 'trans-render/lib/pluginMgr.js';
-import { proxyPropDefaults, IsoHelper } from './IsoHelper.js';
+import { proxyPropDefaults, Cloner } from './Cloner.js';
 import { passTheBaton } from 'be-decorated/relay.js';
 export const trPlugin = {
     selector: 'beClonableAttribs',
@@ -10,9 +10,9 @@ export const trPlugin = {
             const params = JSON.parse(val);
             Object.assign(defaults, params);
         }
-        const isoHelper = new IsoHelper(target, defaults);
-        isoHelper.onTriggerInsertPosition(defaults);
-        passTheBaton('clonable', target, isoHelper);
+        const cloner = new Cloner(target, defaults);
+        cloner.addCloneButtonTrigger(defaults);
+        passTheBaton('clonable', target, cloner);
     }
 };
 register(trPlugin);

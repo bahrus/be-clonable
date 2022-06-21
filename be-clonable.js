@@ -1,24 +1,24 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/be-decorated.js';
-import { IsoHelper, proxyPropDefaults } from './IsoHelper.js';
+import { Cloner, proxyPropDefaults } from './Cloner.js';
 export class BeClonable {
-    #iso;
+    #cloner;
     intro(proxy, target, beDecorProps) { }
     finale(proxy, target, beDecorProps) { }
-    batonPass(proxy, target, beDecorProps, isoHelper) {
-        this.#iso = isoHelper;
+    batonPass(proxy, target, beDecorProps, baton) {
+        this.#cloner = baton;
     }
     async onTriggerInsertPosition(self) {
-        if (this.#iso === undefined) {
-            this.#iso = new IsoHelper(self.proxy, self.proxy);
+        if (this.#cloner === undefined) {
+            this.#cloner = new Cloner(self.proxy, self.proxy);
         }
-        this.#iso.onTriggerInsertPosition(self);
+        this.#cloner.addCloneButtonTrigger(self);
     }
     onText(self) {
-        if (this.#iso === undefined) {
-            this.#iso = new IsoHelper(self.proxy, self.proxy);
+        if (this.#cloner === undefined) {
+            this.#cloner = new Cloner(self.proxy, self.proxy);
         }
-        this.#iso.onText(self);
+        this.#cloner.setText(self);
     }
 }
 const tagName = 'be-clonable';

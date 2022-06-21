@@ -1,5 +1,5 @@
 import { findAdjacentElement } from 'be-decorated/findAdjacentElement.js';
-export class IsoHelper {
+export class Cloner {
     proxy;
     props;
     #trigger;
@@ -10,7 +10,7 @@ export class IsoHelper {
             this.props = proxy;
         }
     }
-    async onTriggerInsertPosition({ text, triggerInsertPosition, then }) {
+    async addCloneButtonTrigger({ text, triggerInsertPosition, then }) {
         if (this.#trigger === undefined) {
             const trigger = findAdjacentElement(triggerInsertPosition, this.proxy, 'button.be-clonable-trigger');
             if (trigger !== null)
@@ -20,7 +20,7 @@ export class IsoHelper {
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
             }
-            this.onText(this.props);
+            this.setText(this.props);
             this.#trigger.addEventListener('click', this.handleClick);
             if (then !== undefined) {
                 const { doThen } = await import('be-decorated/doThen.js');
@@ -28,7 +28,7 @@ export class IsoHelper {
             }
         }
     }
-    onText({ text }) {
+    setText({ text }) {
         if (this.#trigger !== undefined) {
             this.#trigger.innerHTML = text; //TODO:  sanitize
         }

@@ -1,7 +1,7 @@
 import {BeClonableProps, BeClonableVirtualProps} from './types';
 import {findAdjacentElement} from 'be-decorated/findAdjacentElement.js';
 
-export class IsoHelper{
+export class Cloner{
     #trigger: HTMLButtonElement | undefined;
     constructor(public proxy: Element, public props: BeClonableVirtualProps){
         if(props === undefined) {
@@ -9,7 +9,7 @@ export class IsoHelper{
         }
     }
 
-    async onTriggerInsertPosition({text, triggerInsertPosition, then}: BeClonableVirtualProps){
+    async addCloneButtonTrigger({text, triggerInsertPosition, then}: BeClonableVirtualProps){
         if(this.#trigger === undefined){
             const trigger = findAdjacentElement(triggerInsertPosition, this.proxy, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;
@@ -18,7 +18,7 @@ export class IsoHelper{
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
             }
-            this.onText(this.props);
+            this.setText(this.props);
             this.#trigger.addEventListener('click', this.handleClick);
             if(then !== undefined){
                 const {doThen} = await import('be-decorated/doThen.js');
@@ -28,7 +28,7 @@ export class IsoHelper{
 
     }
 
-    onText({text}: BeClonableVirtualProps): void{
+    setText({text}: BeClonableVirtualProps): void{
         if(this.#trigger !== undefined){
             this.#trigger.innerHTML = text;//TODO:  sanitize
         }

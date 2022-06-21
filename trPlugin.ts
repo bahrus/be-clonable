@@ -1,7 +1,7 @@
 import {RenderContext, TransformPluginSettings} from 'trans-render/lib/types';
 import {register} from 'trans-render/lib/pluginMgr.js';
 import {BeClonableVirtualProps} from './types';
-import {proxyPropDefaults, IsoHelper} from './IsoHelper.js';
+import {proxyPropDefaults, Cloner} from './Cloner.js';
 import {passTheBaton} from 'be-decorated/relay.js';
 
 export const trPlugin: TransformPluginSettings = {
@@ -13,9 +13,9 @@ export const trPlugin: TransformPluginSettings = {
             const params = JSON.parse(val) as BeClonableVirtualProps;
             Object.assign(defaults, params);
         }
-        const isoHelper = new IsoHelper(target!, defaults);
-        isoHelper.onTriggerInsertPosition(defaults);
-        passTheBaton('clonable', target!, isoHelper);
+        const cloner = new Cloner(target!, defaults);
+        cloner.addCloneButtonTrigger(defaults);
+        passTheBaton('clonable', target!, cloner);
     }
 }
 
