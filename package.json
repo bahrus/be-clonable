@@ -9,11 +9,14 @@
     "clone"
   ],
   "description": "Adds a button to any element that allows the element to be cloned.",
-  "main": "be-clonable.js",
-  "module": "be-clonable.js",
+  "main": "index.js",
+  "module": "index.js",
+  "type": "module",
   "exports": {
     ".": "./be-clonable.js",
-    "./be-clonable.js": "./be-clonable.js"
+    "./be-clonable.js": "./be-clonable.js",
+    "./trPlugin.js": "./trPlugin.js",
+    "./index.js": "./index.js"
   },
   "files": [
     "*.*"
