@@ -5,7 +5,7 @@ export class BeClonable {
     #iso;
     intro(proxy, target, beDecorProps) { }
     finale(proxy, target, beDecorProps) { }
-    resume(proxy, target, beDecorProps, isoHelper) {
+    batonPass(proxy, target, beDecorProps, isoHelper) {
         this.#iso = isoHelper;
     }
     async onTriggerInsertPosition(self) {
@@ -33,7 +33,7 @@ define({
             virtualProps: ['triggerInsertPosition', 'text', 'then'],
             intro: 'intro',
             finale: 'finale',
-            resume: 'resume',
+            batonPass: 'batonPass',
             proxyPropDefaults
         },
         actions: {

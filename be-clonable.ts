@@ -8,7 +8,7 @@ export class BeClonable implements BeClonableActions{
 
     intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
     finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
-    resume(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, isoHelper: any): void {
+    batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, isoHelper: any): void {
         this.#iso = isoHelper;
     }
     async onTriggerInsertPosition(self: this){
@@ -46,7 +46,7 @@ define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, B
             virtualProps: ['triggerInsertPosition', 'text', 'then'],
             intro: 'intro',
             finale: 'finale',
-            resume: 'resume',
+            batonPass: 'batonPass',
             proxyPropDefaults
         },
         actions:{

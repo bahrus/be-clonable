@@ -1,6 +1,6 @@
 import { register } from 'trans-render/lib/pluginMgr.js';
 import { proxyPropDefaults, IsoHelper } from './IsoHelper.js';
-import { store } from 'be-decorated/isoStorage.js';
+import { passTheBaton } from 'be-decorated/relay.js';
 export const trPlugin = {
     selector: 'beClonableAttribs',
     ready: true,
@@ -12,7 +12,7 @@ export const trPlugin = {
         }
         const isoHelper = new IsoHelper(target, defaults);
         isoHelper.onTriggerInsertPosition(defaults);
-        store('clonable', target, isoHelper);
+        passTheBaton('clonable', target, isoHelper);
     }
 };
 register(trPlugin);
