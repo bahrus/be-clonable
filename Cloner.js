@@ -49,6 +49,12 @@ export class Cloner {
         }
         this.proxy.insertAdjacentElement(this.props.cloneInsertPosition, clone);
     };
+    dispose() {
+        if (this.#trigger !== undefined) {
+            this.#trigger.removeEventListener('click', this.handleClick);
+            this.#trigger.remove();
+        }
+    }
 }
 export const proxyPropDefaults = {
     triggerInsertPosition: 'beforeend',

@@ -5,7 +5,7 @@ export class Cloner{
     #trigger: HTMLButtonElement | undefined;
     constructor(public proxy: Element, public props: BeClonableVirtualProps){
         if(props === undefined) {
-            this.props = proxy as any as BeClonableProps;
+            this.props = proxy as any as BeClonableVirtualProps;
         }
     }
 
@@ -49,6 +49,13 @@ export class Cloner{
             } 
         }
         this.proxy.insertAdjacentElement(this.props.cloneInsertPosition, clone);
+    }
+
+    dispose(){
+        if(this.#trigger !== undefined){
+            this.#trigger.removeEventListener('click', this.handleClick);
+            this.#trigger.remove();
+        }
     }
 }
 

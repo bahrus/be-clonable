@@ -4,7 +4,11 @@ import { Cloner, proxyPropDefaults } from './Cloner.js';
 export class BeClonable {
     #cloner;
     intro(proxy, target, beDecorProps) { }
-    finale(proxy, target, beDecorProps) { }
+    finale(proxy, target, beDecorProps) {
+        if (this.#cloner !== undefined) {
+            this.#cloner.dispose();
+        }
+    }
     batonPass(proxy, target, beDecorProps, baton) {
         this.#cloner = baton;
     }

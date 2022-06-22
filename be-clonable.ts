@@ -7,7 +7,11 @@ export class BeClonable implements BeClonableActions{
     #cloner!: Cloner;
 
     intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
-    finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
+    finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
+        if(this.#cloner !== undefined){
+            this.#cloner.dispose();
+        }
+    }
     batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, baton: any): void {
         this.#cloner = baton;
     }
