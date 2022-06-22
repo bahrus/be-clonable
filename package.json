@@ -13,7 +13,7 @@
   "module": "index.js",
   "type": "module",
   "exports": {
-    ".": "./be-clonable.js",
+    ".": "./index.js",
     "./be-clonable.js": "./be-clonable.js",
     "./trPlugin.js": "./trPlugin.js",
     "./index.js": "./index.js"
