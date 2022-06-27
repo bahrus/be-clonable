@@ -17,6 +17,7 @@ export class Cloner {
                 this.#trigger = trigger;
             if (this.#trigger === undefined) {
                 this.#trigger = document.createElement('button');
+                this.#trigger.type = 'button';
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
             }
