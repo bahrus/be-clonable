@@ -35,20 +35,11 @@ export class Cloner{
         }
     }
 
-    handleClick = (e: Event) => {
+    handleClick = async (e: Event) => {
         const clone = this.proxy.cloneNode(true) as Element;
-        const elements = Array.from(clone.querySelectorAll('*'));
-        elements.push(clone);
-        for(const el of elements){
-            for (const a of el.attributes) {
-                //TODO:  use be-hive - some attributes starting with is- might not be be-decorated based
-                if(a.name.startsWith('is-')){
-                    const val = a.value;
-                    el.removeAttribute(a.name);
-                    el.setAttribute(a.name.replace('is-', 'be-'), val);
-                }
-            } 
-        }
+        const {beatify} = await import('be-hive/beatify.js');
+        const beHive = (this.proxy.getRootNode() as ShadowRoot).querySelector('be-hive') as Element;
+        beatify(clone, beHive);
         this.proxy.insertAdjacentElement(this.props.cloneInsertPosition, clone);
     }
 
