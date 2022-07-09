@@ -17,6 +17,8 @@ export class Cloner{
                 this.#trigger = document.createElement('button');
                 this.#trigger.type = 'button';
                 this.#trigger.classList.add('be-clonable-trigger');
+                this.#trigger.ariaLabel = 'Clone this.';
+                this.#trigger.title = 'Clone this.';
                 this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
             }
             this.setText(this.props);
