@@ -1,6 +1,6 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/be-decorated.js';
-import { Cloner } from './Cloner.js';
+import { Cloner, proxyPropDefaults } from './Cloner.js';
 export class BeClonable extends EventTarget {
     #cloner;
     finale(proxy, target, beDecorProps) {
@@ -36,7 +36,8 @@ define({
             upgrade,
             finale: 'finale',
             batonPass: 'batonPass',
-            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text']
+            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text'],
+            proxyPropDefaults
         },
         actions: {
             onTriggerInsertPosition: 'triggerInsertPosition',

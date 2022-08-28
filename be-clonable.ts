@@ -49,7 +49,8 @@ define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, B
             upgrade,
             finale: 'finale',
             batonPass: 'batonPass',
-            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text']
+            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text'],
+            proxyPropDefaults
         },
         actions:{
             onTriggerInsertPosition: 'triggerInsertPosition',
