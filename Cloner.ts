@@ -9,7 +9,7 @@ export class Cloner{
         }
     }
 
-    async addCloneButtonTrigger({text, triggerInsertPosition, then}: BeClonableVirtualProps){
+    async addCloneButtonTrigger({text, triggerInsertPosition}: BeClonableVirtualProps){
         if(this.#trigger === undefined){
             const trigger = findAdjacentElement(triggerInsertPosition, this.proxy, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;
@@ -23,10 +23,6 @@ export class Cloner{
             }
             this.setText(this.props);
             this.#trigger.addEventListener('click', this.handleClick);
-            if(then !== undefined){
-                const {doThen} = await import('be-decorated/doThen.js');
-                doThen(this.proxy, then);
-            }
         }
 
     }

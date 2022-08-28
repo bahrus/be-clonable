@@ -3,10 +3,9 @@ import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeClonableActions, BeClonableProps, BeClonableVirtualProps} from './types';
 import {Cloner, proxyPropDefaults} from './Cloner.js';
 
-export class BeClonable implements BeClonableActions{
+export class BeClonable extends EventTarget implements BeClonableActions{
     #cloner!: Cloner;
 
-    intro(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{}
     finale(proxy: Element & BeClonableProps, target: Element, beDecorProps: BeDecoratedProps): void{
         if(this.#cloner !== undefined){
             this.#cloner.dispose();
@@ -15,11 +14,12 @@ export class BeClonable implements BeClonableActions{
     batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>, baton: any): void {
         this.#cloner = baton;
     }
-    async onTriggerInsertPosition(self: this){
+    async onTriggerInsertPosition({proxy}: this){
         if(this.#cloner === undefined){
-            this.#cloner = new Cloner(self.proxy, self.proxy);
+            this.#cloner = new Cloner(proxy, proxy);
         }
-        this.#cloner.addCloneButtonTrigger(self);
+        await this.#cloner.addCloneButtonTrigger(this);
+        proxy.resolved = true;
 
     }
 
@@ -47,11 +47,9 @@ define<BeClonableProps & BeDecoratedProps<BeClonableProps, BeClonableActions>, B
         propDefaults:{
             ifWantsToBe,
             upgrade,
-            virtualProps: ['triggerInsertPosition', 'text', 'then'],
-            intro: 'intro',
             finale: 'finale',
             batonPass: 'batonPass',
-            proxyPropDefaults
+            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text']
         },
         actions:{
             onTriggerInsertPosition: 'triggerInsertPosition',

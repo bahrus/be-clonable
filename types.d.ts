@@ -1,18 +1,18 @@
-import {BeDecoratedProps} from 'be-decorated/types';
+import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
-export interface BeClonableVirtualProps {
+export interface BeClonableEndUserProps {
     triggerInsertPosition: InsertPosition;
     cloneInsertPosition: InsertPosition;
     text: string;
-    then?: string | any[] | any;
 }
+
+export interface BeClonableVirtualProps extends BeClonableEndUserProps, MinimalProxy{}
 
 export interface BeClonableProps extends BeClonableVirtualProps{
     proxy: Element & BeClonableProps;
 }
 
 export interface BeClonableActions{
-    intro(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
     batonPass(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps, baton: any): void;
     finale(proxy: Element & BeClonableVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
     onTriggerInsertPosition(self: this): void;

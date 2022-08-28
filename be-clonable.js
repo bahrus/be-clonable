@@ -1,9 +1,8 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/be-decorated.js';
-import { Cloner, proxyPropDefaults } from './Cloner.js';
-export class BeClonable {
+import { Cloner } from './Cloner.js';
+export class BeClonable extends EventTarget {
     #cloner;
-    intro(proxy, target, beDecorProps) { }
     finale(proxy, target, beDecorProps) {
         if (this.#cloner !== undefined) {
             this.#cloner.dispose();
@@ -12,11 +11,12 @@ export class BeClonable {
     batonPass(proxy, target, beDecorProps, baton) {
         this.#cloner = baton;
     }
-    async onTriggerInsertPosition(self) {
+    async onTriggerInsertPosition({ proxy }) {
         if (this.#cloner === undefined) {
-            this.#cloner = new Cloner(self.proxy, self.proxy);
+            this.#cloner = new Cloner(proxy, proxy);
         }
-        this.#cloner.addCloneButtonTrigger(self);
+        await this.#cloner.addCloneButtonTrigger(this);
+        proxy.resolved = true;
     }
     onText(self) {
         if (this.#cloner === undefined) {
@@ -34,11 +34,9 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['triggerInsertPosition', 'text', 'then'],
-            intro: 'intro',
             finale: 'finale',
             batonPass: 'batonPass',
-            proxyPropDefaults
+            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text']
         },
         actions: {
             onTriggerInsertPosition: 'triggerInsertPosition',

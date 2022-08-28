@@ -10,7 +10,7 @@ export class Cloner {
             this.props = proxy;
         }
     }
-    async addCloneButtonTrigger({ text, triggerInsertPosition, then }) {
+    async addCloneButtonTrigger({ text, triggerInsertPosition }) {
         if (this.#trigger === undefined) {
             const trigger = findAdjacentElement(triggerInsertPosition, this.proxy, 'button.be-clonable-trigger');
             if (trigger !== null)
@@ -25,10 +25,6 @@ export class Cloner {
             }
             this.setText(this.props);
             this.#trigger.addEventListener('click', this.handleClick);
-            if (then !== undefined) {
-                const { doThen } = await import('be-decorated/doThen.js');
-                doThen(this.proxy, then);
-            }
         }
     }
     setText({ text }) {
