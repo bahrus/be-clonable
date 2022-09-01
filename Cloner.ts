@@ -1,4 +1,4 @@
-import {BeClonableProps, BeClonableVirtualProps} from './types';
+import {BeClonableController, BeClonableVirtualProps} from './types';
 import {findAdjacentElement} from 'be-decorated/findAdjacentElement.js';
 
 export class Cloner{

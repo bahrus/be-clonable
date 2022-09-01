@@ -8,8 +8,8 @@ export interface BeClonableEndUserProps {
 
 export interface BeClonableVirtualProps extends BeClonableEndUserProps, MinimalProxy{}
 
-export interface BeClonableProps extends BeClonableVirtualProps{
-    proxy: Element & BeClonableProps;
+export interface BeClonableController extends BeClonableVirtualProps, BeClonableActions{
+    proxy: Element & BeClonableVirtualProps;
 }
 
 export interface BeClonableActions{
