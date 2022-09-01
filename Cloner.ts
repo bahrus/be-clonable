@@ -1,4 +1,4 @@
-import {BeClonableController, BeClonableVirtualProps} from './types';
+import {BCP, BeClonableVirtualProps, BeClonableEndUserProps} from './types';
 import {findAdjacentElement} from 'be-decorated/findAdjacentElement.js';
 
 export class Cloner{
@@ -9,9 +9,9 @@ export class Cloner{
         }
     }
 
-    async addCloneButtonTrigger({text, triggerInsertPosition}: BeClonableVirtualProps){
+    async addCloneButtonTrigger({text, triggerInsertPosition}: BCP){
         if(this.#trigger === undefined){
-            const trigger = findAdjacentElement(triggerInsertPosition, this.proxy, 'button.be-clonable-trigger');
+            const trigger = findAdjacentElement(triggerInsertPosition!, this.proxy, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;
             if(this.#trigger === undefined){
                 this.#trigger = document.createElement('button');
@@ -19,7 +19,7 @@ export class Cloner{
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.#trigger.ariaLabel = 'Clone this.';
                 this.#trigger.title = 'Clone this.';
-                this.proxy.insertAdjacentElement(triggerInsertPosition, this.#trigger);
+                this.proxy.insertAdjacentElement(triggerInsertPosition!, this.#trigger);
             }
             this.setText(this.props);
             this.#trigger.addEventListener('click', this.handleClick);
@@ -29,7 +29,7 @@ export class Cloner{
 
     setText({text}: BeClonableVirtualProps): void{
         if(this.#trigger !== undefined){
-            this.#trigger.innerHTML = text;//TODO:  sanitize
+            this.#trigger.innerHTML = text!;//TODO:  sanitize
         }
     }
 
@@ -37,8 +37,10 @@ export class Cloner{
         const clone = this.proxy.cloneNode(true) as Element;
         const {beatify} = await import('be-hive/beatify.js');
         const beHive = (this.proxy.getRootNode() as ShadowRoot).querySelector('be-hive') as Element;
-        beatify(clone, beHive);
-        this.proxy.insertAdjacentElement(this.props.cloneInsertPosition, clone);
+        if(beHive !== null){
+            beatify(clone, beHive);
+        }
+        this.proxy.insertAdjacentElement(this.props.cloneInsertPosition!, clone);
     }
 
     dispose(){
@@ -49,7 +51,7 @@ export class Cloner{
     }
 }
 
-export const proxyPropDefaults: BeClonableVirtualProps = {
+export const proxyPropDefaults: BeClonableEndUserProps = {
     triggerInsertPosition: 'beforeend',
     cloneInsertPosition: 'afterend',
     text: '&#10063;'

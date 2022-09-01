@@ -36,7 +36,9 @@ export class Cloner {
         const clone = this.proxy.cloneNode(true);
         const { beatify } = await import('be-hive/beatify.js');
         const beHive = this.proxy.getRootNode().querySelector('be-hive');
-        beatify(clone, beHive);
+        if (beHive !== null) {
+            beatify(clone, beHive);
+        }
         this.proxy.insertAdjacentElement(this.props.cloneInsertPosition, clone);
     };
     dispose() {
