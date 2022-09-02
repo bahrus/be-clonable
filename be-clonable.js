@@ -6,6 +6,7 @@ export class BeClonable extends EventTarget {
     finale(proxy, target, beDecorProps) {
         if (this.#cloner !== undefined) {
             this.#cloner.dispose();
+            this.#cloner = undefined;
         }
     }
     batonPass(proxy, target, beDecorProps, baton) {

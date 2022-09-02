@@ -4,11 +4,12 @@ import {BeClonableActions, BCP, BeClonableVirtualProps, Proxy} from './types';
 import {Cloner, proxyPropDefaults} from './Cloner.js';
 
 export class BeClonable extends EventTarget implements BeClonableActions{
-    #cloner!: Cloner;
+    #cloner!: Cloner | undefined;
 
     finale(proxy: BCP, target: Element, beDecorProps: BeDecoratedProps): void{
         if(this.#cloner !== undefined){
             this.#cloner.dispose();
+            this.#cloner = undefined;
         }
     }
     batonPass(proxy: BCP, target: Element, beDecorProps: BeDecoratedProps<any, any>, baton: any): void {
