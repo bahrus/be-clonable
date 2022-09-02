@@ -46,6 +46,7 @@ export class Cloner {
             this.#trigger.removeEventListener('click', this.handleClick);
             this.#trigger.remove();
         }
+        this.proxy = undefined;
     }
 }
 export const proxyPropDefaults = {

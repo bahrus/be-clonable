@@ -3,7 +3,7 @@ import {findAdjacentElement} from 'be-decorated/findAdjacentElement.js';
 
 export class Cloner{
     #trigger: HTMLButtonElement | undefined;
-    constructor(public proxy: Element, public props: BeClonableVirtualProps){
+    constructor(public proxy: Element | undefined, public props: BeClonableVirtualProps){
         if(props === undefined) {
             this.props = proxy as any as BeClonableVirtualProps;
         }
@@ -11,7 +11,7 @@ export class Cloner{
 
     async addCloneButtonTrigger({text, triggerInsertPosition}: BCP){
         if(this.#trigger === undefined){
-            const trigger = findAdjacentElement(triggerInsertPosition!, this.proxy, 'button.be-clonable-trigger');
+            const trigger = findAdjacentElement(triggerInsertPosition!, this.proxy!, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;
             if(this.#trigger === undefined){
                 this.#trigger = document.createElement('button');
@@ -19,7 +19,7 @@ export class Cloner{
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.#trigger.ariaLabel = 'Clone this.';
                 this.#trigger.title = 'Clone this.';
-                this.proxy.insertAdjacentElement(triggerInsertPosition!, this.#trigger);
+                this.proxy!.insertAdjacentElement(triggerInsertPosition!, this.#trigger);
             }
             this.setText(this.props);
             this.#trigger.addEventListener('click', this.handleClick);
@@ -34,13 +34,13 @@ export class Cloner{
     }
 
     handleClick = async (e: Event) => {
-        const clone = this.proxy.cloneNode(true) as Element;
+        const clone = this.proxy!.cloneNode(true) as Element;
         const {beatify} = await import('be-hive/beatify.js');
-        const beHive = (this.proxy.getRootNode() as ShadowRoot).querySelector('be-hive') as Element;
+        const beHive = (this.proxy!.getRootNode() as ShadowRoot).querySelector('be-hive') as Element;
         if(beHive !== null){
             beatify(clone, beHive);
         }
-        this.proxy.insertAdjacentElement(this.props.cloneInsertPosition!, clone);
+        this.proxy!.insertAdjacentElement(this.props.cloneInsertPosition!, clone);
     }
 
     dispose(){
@@ -48,6 +48,7 @@ export class Cloner{
             this.#trigger.removeEventListener('click', this.handleClick);
             this.#trigger.remove();
         }
+        this.proxy = undefined;
     }
 }
 
