@@ -10,15 +10,15 @@ export interface BeClonableVirtualProps extends BeClonableEndUserProps, MinimalP
 
 export type Proxy = Element & BeClonableVirtualProps;
 
-export interface BeClonableProxy extends  BeClonableActions, BeClonableVirtualProps{
+export interface ProxyProps extends BeClonableVirtualProps{
     proxy: Proxy;
 }
 
-export type BCP = BeClonableProxy;
+export type PP = ProxyProps;
 
 export interface BeClonableActions{
-    batonPass(proxy: BCP, target: Element, beDecorProps: BeDecoratedProps, baton: any): void;
-    finale(proxy: BCP, target: Element, beDecorProps: BeDecoratedProps): void;
-    onTriggerInsertPosition(proxy: BCP): void;
-    onText(proxy: BCP): void;
+    batonPass(proxy: PP, target: Element, beDecorProps: BeDecoratedProps, baton: any): void;
+    finale(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps): void;
+    onTriggerInsertPosition(proxy: PP): void;
+    onText(proxy: PP): void;
 }

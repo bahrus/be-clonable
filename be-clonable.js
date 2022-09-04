@@ -9,23 +9,23 @@ export class BeClonable extends EventTarget {
             this.#cloner = undefined;
         }
     }
-    batonPass(proxy, target, beDecorProps, baton) {
+    batonPass(pp, target, beDecorProps, baton) {
         this.#cloner = baton;
     }
-    async onTriggerInsertPosition(bcp) {
-        const { proxy } = bcp;
+    async onTriggerInsertPosition(pp) {
+        const { proxy } = pp;
         if (this.#cloner === undefined) {
-            this.#cloner = new Cloner(proxy, bcp);
+            this.#cloner = new Cloner(proxy, pp);
         }
-        await this.#cloner.addCloneButtonTrigger(bcp);
+        await this.#cloner.addCloneButtonTrigger(pp);
         proxy.resolved = true;
     }
-    onText(bcp) {
+    onText(pp) {
         if (this.#cloner === undefined) {
-            const { proxy } = bcp;
-            this.#cloner = new Cloner(proxy, bcp);
+            const { proxy } = pp;
+            this.#cloner = new Cloner(proxy, pp);
         }
-        this.#cloner.setText(bcp);
+        this.#cloner.setText(pp);
     }
 }
 const tagName = 'be-clonable';
