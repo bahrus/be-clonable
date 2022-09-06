@@ -1,9 +1,9 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeClonableActions, PP, BeClonableVirtualProps, Proxy} from './types';
+import {Actions, PP, VirtualProps, Proxy} from './types';
 import {Cloner, proxyPropDefaults} from './Cloner.js';
 
-export class BeClonable extends EventTarget implements BeClonableActions{
+export class BeClonable extends EventTarget implements Actions{
     #cloner!: Cloner | undefined;
 
     finale(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps): void{
@@ -42,7 +42,7 @@ const upgrade = '*';
 
 
 
-define<BeClonableVirtualProps & BeDecoratedProps<BeClonableVirtualProps, BeClonableActions>, BeClonableActions>({
+define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{

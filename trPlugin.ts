@@ -1,6 +1,6 @@
 import {RenderContext, TransformPluginSettings} from 'trans-render/lib/types';
 import {register} from 'trans-render/lib/pluginMgr.js';
-import {BeClonableVirtualProps} from './types';
+import {VirtualProps} from './types';
 import {proxyPropDefaults, Cloner} from './Cloner.js';
 import {passTheBaton} from 'be-decorated/relay.js';
 
@@ -10,7 +10,7 @@ export const trPlugin: TransformPluginSettings = {
     processor:  async ({target, val, attrib, host}: RenderContext) => {
         let defaults = {...proxyPropDefaults};
         if(val){
-            const params = JSON.parse(val) as BeClonableVirtualProps;
+            const params = JSON.parse(val) as VirtualProps;
             Object.assign(defaults, params);
         }
         const cloner = new Cloner(target!, defaults);

@@ -1,11 +1,11 @@
-import {BCP, BeClonableVirtualProps, BeClonableEndUserProps} from './types';
+import {BCP, VirtualProps, EndUserProps} from './types';
 import {findAdjacentElement} from 'be-decorated/findAdjacentElement.js';
 
 export class Cloner{
     #trigger: HTMLButtonElement | undefined;
-    constructor(public proxy: Element | undefined, public props: BeClonableVirtualProps){
+    constructor(public proxy: Element | undefined, public props: VirtualProps){
         if(props === undefined) {
-            this.props = proxy as any as BeClonableVirtualProps;
+            this.props = proxy as any as VirtualProps;
         }
     }
 
@@ -27,7 +27,7 @@ export class Cloner{
 
     }
 
-    setText({text}: BeClonableVirtualProps): void{
+    setText({text}: VirtualProps): void{
         if(this.#trigger !== undefined){
             this.#trigger.innerHTML = text!;//TODO:  sanitize
         }
@@ -52,7 +52,7 @@ export class Cloner{
     }
 }
 
-export const proxyPropDefaults: BeClonableEndUserProps = {
+export const proxyPropDefaults: EndUserProps = {
     triggerInsertPosition: 'beforeend',
     cloneInsertPosition: 'afterend',
     text: '&#10063;'
