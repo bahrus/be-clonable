@@ -11,7 +11,6 @@
   "description": "Adds a button to any element that allows the element to be cloned.",
   "main": "index.js",
   "module": "index.js",
-  "type": "module",
   "exports": {
     ".": "./index.js",
     "./be-clonable.js": "./be-clonable.js",
@@ -23,17 +22,18 @@
   ],
   "types": "types.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "playwright test",
     "serve": "node node_modules/may-it-serve/serve.js",
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-decorated": "0.0.153",
-    "be-hive": "0.0.63",
-    "trans-render": "0.0.585"
+    "be-decorated": "0.0.171",
+    "be-hive": "0.0.73",
+    "trans-render": "0.0.625"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.2",
+    "may-it-serve": "0.0.3",
+    "@playwright/test": "1.27.1",
     "@skypack/package-check": "0.2.2"
   },
   "repository": {
