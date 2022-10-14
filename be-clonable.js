@@ -1,5 +1,5 @@
 import { register } from 'be-hive/register.js';
-import { define } from 'be-decorated/be-decorated.js';
+import { define } from 'be-decorated/DE.js';
 import { Cloner, proxyPropDefaults } from './Cloner.js';
 export class BeClonable extends EventTarget {
     #cloner;
