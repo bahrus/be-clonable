@@ -15,7 +15,7 @@ export class BeClonable extends EventTarget implements Actions{
     batonPass(pp: PP, target: Element, beDecorProps: BeDecoratedProps<any, any>, baton: any): void {
         this.#cloner = baton;
     }
-    async onTriggerInsertPosition(pp: PP){
+    async addCloneBtn(pp: PP){
         const {proxy} = pp;
         if(this.#cloner === undefined){
             this.#cloner = new Cloner(proxy, pp);
@@ -54,7 +54,7 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
             proxyPropDefaults
         },
         actions:{
-            onTriggerInsertPosition: 'triggerInsertPosition',
+            addCloneBtn: 'triggerInsertPosition',
             onText: 'text',
         }
     },

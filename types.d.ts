@@ -1,4 +1,4 @@
-import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
+import {BeDecoratedProps, MinimalProxy, EventConfigs} from 'be-decorated/types';
 
 export interface EndUserProps {
     triggerInsertPosition?: InsertPosition;
@@ -16,9 +16,14 @@ export interface ProxyProps extends VirtualProps{
 
 export type PP = ProxyProps;
 
+export type PPP = Partial<ProxyProps>;
+
+export type PPE = [Partial<PP>, EventConfigs<Proxy, Actions>];
+
 export interface Actions{
-    batonPass(proxy: PP, target: Element, beDecorProps: BeDecoratedProps, baton: any): void;
+    batonPass(pp: PP, target: Element, beDecorProps: BeDecoratedProps, baton: any): void;
     finale(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps): void;
-    onTriggerInsertPosition(proxy: PP): void;
-    onText(proxy: PP): void;
+    addCloneBtn(pp: PP): Promise<PPE | void>;
+    onText(pp: PP): void;
+    beCloned(pp: PP): void;
 }
