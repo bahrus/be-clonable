@@ -7,6 +7,7 @@ export class BeClonable extends EventTarget implements Actions{
     #trigger: HTMLButtonElement | undefined;
     async addCloneBtn(pp: PP): Promise<PPE | void> {
         if(this.#trigger === undefined){
+            //the check above is unlikely to ever fail.
             const {triggerInsertPosition, self} = pp;
             const {findAdjacentElement} = await import('be-decorated/findAdjacentElement.js');
             const trigger = findAdjacentElement(triggerInsertPosition!, self, 'button.be-clonable-trigger');
