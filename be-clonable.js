@@ -1,31 +1,44 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/DE.js';
-import { Cloner, proxyPropDefaults } from './Cloner.js';
 export class BeClonable extends EventTarget {
-    #cloner;
-    finale(proxy, target, beDecorProps) {
-        if (this.#cloner !== undefined) {
-            this.#cloner.dispose();
-            this.#cloner = undefined;
+    #trigger;
+    async addCloneBtn(pp) {
+        if (this.#trigger === undefined) {
+            const { triggerInsertPosition, self } = pp;
+            const { findAdjacentElement } = await import('be-decorated/findAdjacentElement.js');
+            const trigger = findAdjacentElement(triggerInsertPosition, self, 'button.be-clonable-trigger');
+            if (trigger !== null)
+                this.#trigger = trigger;
+            const returnObj = [{ resolved: true }, { beCloned: { on: 'click', of: self } }];
+            if (this.#trigger === undefined) {
+                this.#trigger = document.createElement('button');
+                this.#trigger.type = 'button';
+                this.#trigger.classList.add('be-clonable-trigger');
+                this.#trigger.ariaLabel = 'Clone this.';
+                this.#trigger.title = 'Clone this.';
+                self.insertAdjacentElement(triggerInsertPosition, this.#trigger);
+                returnObj[0].byob = false;
+            }
+            return returnObj;
+        }
+        else {
+            //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
         }
     }
-    batonPass(pp, target, beDecorProps, baton) {
-        this.#cloner = baton;
-    }
-    async onTriggerInsertPosition(pp) {
-        const { proxy } = pp;
-        if (this.#cloner === undefined) {
-            this.#cloner = new Cloner(proxy, pp);
+    setBtnContent({ buttonContent }) {
+        if (this.#trigger !== undefined) {
+            this.#trigger.innerHTML = buttonContent; //TODO:  sanitize
         }
-        await this.#cloner.addCloneButtonTrigger(pp);
-        proxy.resolved = true;
     }
-    onText(pp) {
-        if (this.#cloner === undefined) {
-            const { proxy } = pp;
-            this.#cloner = new Cloner(proxy, pp);
+    async beCloned({ self, cloneInsertPosition }) {
+        const clone = self.cloneNode(true);
+        //TODO:  maybe we can skip this step and use the new attach method?
+        const { beatify } = await import('be-hive/beatify.js');
+        const beHive = self.getRootNode().querySelector('be-hive');
+        if (beHive !== null) {
+            beatify(clone, beHive);
         }
-        this.#cloner.setText(pp);
+        self.insertAdjacentElement(cloneInsertPosition, clone);
     }
 }
 const tagName = 'be-clonable';
@@ -37,14 +50,20 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            finale: 'finale',
-            batonPass: 'batonPass',
-            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'text'],
-            proxyPropDefaults
+            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'buttonContent'],
+            proxyPropDefaults: {
+                byob: true,
+                triggerInsertPosition: 'beforeend',
+                cloneInsertPosition: 'afterend',
+                buttonContent: '&#10063;'
+            }
         },
         actions: {
-            onTriggerInsertPosition: 'triggerInsertPosition',
-            onText: 'text',
+            addCloneBtn: 'triggerInsertPosition',
+            setBtnContent: {
+                ifAllOf: ['buttonContent'],
+                ifNoneOf: ['byob'],
+            }
         }
     },
     complexPropDefaults: {

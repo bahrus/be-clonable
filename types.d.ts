@@ -6,7 +6,9 @@ export interface EndUserProps {
     buttonContent?: string;
 }
 
-export interface VirtualProps extends EndUserProps, MinimalProxy{}
+export interface VirtualProps extends EndUserProps, MinimalProxy{
+    byob?: boolean,
+}
 
 export type Proxy = Element & VirtualProps;
 

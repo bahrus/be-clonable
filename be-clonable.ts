@@ -6,12 +6,12 @@ import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps} from './types';
 export class BeClonable extends EventTarget implements Actions{
     #trigger: HTMLButtonElement | undefined;
     async addCloneBtn(pp: PP): Promise<PPE | void> {
-        
         if(this.#trigger === undefined){
             const {triggerInsertPosition, self} = pp;
             const {findAdjacentElement} = await import('be-decorated/findAdjacentElement.js');
             const trigger = findAdjacentElement(triggerInsertPosition!, self, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;
+            const returnObj: PPE = [{resolved: true}, {beCloned: {on: 'click', of: self}}]
             if(this.#trigger === undefined){
                 this.#trigger = document.createElement('button');
                 this.#trigger.type = 'button';
@@ -19,10 +19,12 @@ export class BeClonable extends EventTarget implements Actions{
                 this.#trigger.ariaLabel = 'Clone this.';
                 this.#trigger.title = 'Clone this.';
                 self.insertAdjacentElement(triggerInsertPosition!, this.#trigger);
+                returnObj[0].byob = false;
             }
-            this.setBtnContent(pp);
-            return [{resolved: true}, {beCloned: {on: 'click', of: self}}];
-        }        
+            return returnObj;
+        }else{
+            //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
+        }     
     }
 
     setBtnContent({buttonContent}: PP): void{
@@ -57,6 +59,7 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
             upgrade,
             virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'buttonContent'],
             proxyPropDefaults: {
+                byob: true,
                 triggerInsertPosition: 'beforeend',
                 cloneInsertPosition: 'afterend',
                 buttonContent: '&#10063;'
@@ -64,10 +67,15 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
         },
         actions:{
             addCloneBtn: 'triggerInsertPosition',
-            setBtnContent: 'buttonContent',
+            setBtnContent: {
+                ifAllOf: ['buttonContent'],
+                ifNoneOf: ['byob'],
+            }
         }
     },
     complexPropDefaults:{
         controller: BeClonable
     }
 });
+
+register(ifWantsToBe, upgrade, tagName);

@@ -1,5 +1,5 @@
 import { register } from 'trans-render/lib/pluginMgr.js';
-import { proxyPropDefaults, Cloner } from './Cloner.js';
+import { proxyPropDefaults, Cloner } from './Cloner.void';
 import { passTheBaton } from 'be-decorated/relay.js';
 export const trPlugin = {
     selector: 'beClonableAttribs',
