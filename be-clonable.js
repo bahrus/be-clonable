@@ -10,16 +10,17 @@ export class BeClonable extends EventTarget {
             const trigger = findAdjacentElement(triggerInsertPosition, self, 'button.be-clonable-trigger');
             if (trigger !== null)
                 this.#trigger = trigger;
-            const returnObj = [{ resolved: true }, { beCloned: { on: 'click', of: self } }];
+            let byob = true;
             if (this.#trigger === undefined) {
+                byob = false;
                 this.#trigger = document.createElement('button');
                 this.#trigger.type = 'button';
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.#trigger.ariaLabel = 'Clone this.';
                 this.#trigger.title = 'Clone this.';
                 self.insertAdjacentElement(triggerInsertPosition, this.#trigger);
-                returnObj[0].byob = false;
             }
+            const returnObj = [{ resolved: true, byob }, { beCloned: { on: 'click', of: this.#trigger } }];
             return returnObj;
         }
         else {

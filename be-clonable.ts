@@ -12,16 +12,17 @@ export class BeClonable extends EventTarget implements Actions{
             const {findAdjacentElement} = await import('be-decorated/findAdjacentElement.js');
             const trigger = findAdjacentElement(triggerInsertPosition!, self, 'button.be-clonable-trigger');
             if(trigger !== null) this.#trigger = trigger as HTMLButtonElement;
-            const returnObj: PPE = [{resolved: true}, {beCloned: {on: 'click', of: self}}]
+            let byob = true;
             if(this.#trigger === undefined){
+                byob = false;
                 this.#trigger = document.createElement('button');
                 this.#trigger.type = 'button';
                 this.#trigger.classList.add('be-clonable-trigger');
                 this.#trigger.ariaLabel = 'Clone this.';
                 this.#trigger.title = 'Clone this.';
                 self.insertAdjacentElement(triggerInsertPosition!, this.#trigger);
-                returnObj[0].byob = false;
             }
+            const returnObj: PPE = [{resolved: true, byob}, {beCloned: {on: 'click', of: this.#trigger}}]
             return returnObj;
         }else{
             //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
