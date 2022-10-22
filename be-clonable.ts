@@ -62,6 +62,7 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
         propDefaults:{
             ifWantsToBe,
             upgrade,
+            finale: 'finale',
             virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'buttonContent'],
             proxyPropDefaults: {
                 byob: true,

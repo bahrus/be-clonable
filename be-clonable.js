@@ -54,6 +54,7 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
+            finale: 'finale',
             virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'buttonContent'],
             proxyPropDefaults: {
                 byob: true,
