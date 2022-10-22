@@ -26,4 +26,5 @@ export interface Actions{
     addCloneBtn(pp: PP): Promise<PPE | void>;
     setBtnContent(pp: PP): void;
     beCloned(pp: PP): void;
+    finale(): void;
 }

@@ -41,6 +41,9 @@ export class BeClonable extends EventTarget {
         }
         self.insertAdjacentElement(cloneInsertPosition, clone);
     }
+    finale() {
+        this.#trigger = undefined;
+    }
 }
 const tagName = 'be-clonable';
 const ifWantsToBe = 'clonable';
