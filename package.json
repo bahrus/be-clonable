@@ -27,12 +27,12 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-decorated": "0.0.186",
-    "be-hive": "0.0.76",
-    "trans-render": "0.0.628"
+    "be-decorated": "0.0.198",
+    "be-hive": "0.0.77",
+    "trans-render": "0.0.646"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.3",
+    "may-it-serve": "0.0.4",
     "@playwright/test": "1.27.1",
     "@skypack/package-check": "0.2.2"
   },

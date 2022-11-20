@@ -23,7 +23,7 @@ export type PPP = Partial<ProxyProps>;
 export type PPE = [Partial<PP>, EventConfigs<Proxy, Actions>];
 
 export interface Actions{
-    addCloneBtn(pp: PP): Promise<PPE | void>;
+    addCloneBtn(pp: PP, returnObjMold: PPE): Promise<PPE | void>;
     setBtnContent(pp: PP): void;
     beCloned(pp: PP): void;
     finale(): void;

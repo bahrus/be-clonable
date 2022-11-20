@@ -5,7 +5,7 @@ import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps} from './types';
 
 export class BeClonable extends EventTarget implements Actions{
     #trigger: HTMLButtonElement | undefined;
-    async addCloneBtn(pp: PP): Promise<PPE | void> {
+    async addCloneBtn(pp: PP, returnObjMold: PPE): Promise<PPE | void> {
         if(this.#trigger === undefined){
             //the check above is unlikely to ever fail.
             const {triggerInsertPosition, self} = pp;
@@ -22,8 +22,8 @@ export class BeClonable extends EventTarget implements Actions{
                 this.#trigger.title = 'Clone this.';
                 self.insertAdjacentElement(triggerInsertPosition!, this.#trigger);
             }
-            const returnObj: PPE = [{resolved: true, byob}, {beCloned: {on: 'click', of: this.#trigger}}]
-            return returnObj;
+            returnObjMold[1].beCloned!.of = this.#trigger;
+            return returnObjMold;
         }else{
             //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
         }     
@@ -73,7 +73,10 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
             }
         },
         actions:{
-            addCloneBtn: 'triggerInsertPosition',
+            addCloneBtn: {
+                ifAllOf: ['triggerInsertPosition'],
+                returnObjMold: [{resolved: true, byob: true}, {beCloned: {on: 'click', of: 'tbd'}}]
+            },
             setBtnContent: {
                 ifAllOf: ['buttonContent'],
                 ifNoneOf: ['byob'],

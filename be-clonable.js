@@ -2,7 +2,7 @@ import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/DE.js';
 export class BeClonable extends EventTarget {
     #trigger;
-    async addCloneBtn(pp) {
+    async addCloneBtn(pp, returnObjMold) {
         if (this.#trigger === undefined) {
             //the check above is unlikely to ever fail.
             const { triggerInsertPosition, self } = pp;
@@ -20,8 +20,8 @@ export class BeClonable extends EventTarget {
                 this.#trigger.title = 'Clone this.';
                 self.insertAdjacentElement(triggerInsertPosition, this.#trigger);
             }
-            const returnObj = [{ resolved: true, byob }, { beCloned: { on: 'click', of: this.#trigger } }];
-            return returnObj;
+            returnObjMold[1].beCloned.of = this.#trigger;
+            return returnObjMold;
         }
         else {
             //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
@@ -65,7 +65,10 @@ define({
             }
         },
         actions: {
-            addCloneBtn: 'triggerInsertPosition',
+            addCloneBtn: {
+                ifAllOf: ['triggerInsertPosition'],
+                returnObjMold: [{ resolved: true, byob: true }, { beCloned: { on: 'click', of: 'tbd' } }]
+            },
             setBtnContent: {
                 ifAllOf: ['buttonContent'],
                 ifNoneOf: ['byob'],

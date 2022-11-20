@@ -3,16 +3,11 @@
 be-clonable is a web component decorator, that adds or hydrates a triggering button, and enables that button to clone the adorned element.
 
 [![Playwright Tests](https://github.com/bahrus/be-clonable/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-clonable/actions/workflows/CI.yml)
+[![NPM version](https://badge.fury.io/js/be-clonable.png)](http://badge.fury.io/js/be-clonable)
 
-<a href="https://nodei.co/npm/be-clonable/"><img src="https://nodei.co/npm/be-clonable.png"></a>
+Size of package, including custom element behavior framework (be-decorated): [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-clonable?style=for-the-badge)](https://bundlephobia.com/result?p=be-clonable)
 
-Size of package, including custom element behavior framework (be-decorated):
-
-[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-clonable?style=for-the-badge)](https://bundlephobia.com/result?p=be-clonable)
-
-Size of new code in this package:
-
-<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-clonable?compression=gzip">
+Size of new code in this package: <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-clonable?compression=gzip">
 
 
 ## Syntax
