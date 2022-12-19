@@ -31,7 +31,7 @@ In fact, it is a little better from a performance point of view to manually add 
 
 
 
-The button as well as the event handler can be attached during template instantiation, saving a bit of strain (including layout shift) on the browser, *if* the be-clonable library is already in memory.  If not, *Mei wenti*, this behavior will add it once it is loaded. This works if using the trans-render library for instantiating the template.
+The button as well as the event handler can be attached during template instantiation, if using the power of make from the [trans-render](https://github.com/bahrus/trans-render) package.
 
 
 

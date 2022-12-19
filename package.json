@@ -12,10 +12,8 @@
   "main": "be-clonable.js",
   "module": "be-clonable.js",
   "exports": {
-    ".": "./index.js",
-    "./be-clonable.js": "./be-clonable.js",
-    "./trPlugin.js": "./trPlugin.js",
-    "./index.js": "./index.js"
+    ".": "./be-clonable.js",
+    "./be-clonable.js": "./be-clonable.js"
   },
   "files": [
     "*.*"
@@ -27,13 +25,13 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-decorated": "0.0.198",
-    "be-hive": "0.0.77",
-    "trans-render": "0.0.646"
+    "be-decorated": "0.0.207",
+    "be-hive": "0.0.78",
+    "trans-render": "0.0.653"
   },
   "devDependencies": {
     "may-it-serve": "0.0.4",
-    "@playwright/test": "1.27.1",
+    "@playwright/test": "1.29.0",
     "@skypack/package-check": "0.2.2"
   },
   "repository": {
