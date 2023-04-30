@@ -1,27 +1,36 @@
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-import { define } from 'be-decorated/DE.js';
-export class BeClonable extends EventTarget {
+export class BeClonable extends BE {
     #trigger;
-    async addCloneBtn(pp, returnObjMold) {
+    async addCloneBtn(self) {
         if (this.#trigger === undefined) {
             //the check above is unlikely to ever fail.
-            const { triggerInsertPosition, self } = pp;
-            const { findAdjacentElement } = await import('be-decorated/findAdjacentElement.js');
-            const trigger = findAdjacentElement(triggerInsertPosition, self, 'button.be-clonable-trigger');
+            const { triggerInsertPosition, enhancedElement } = self;
+            const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
+            const trigger = findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger');
             if (trigger !== null)
-                this.#trigger = trigger;
+                this.#trigger = new WeakRef(trigger);
             let byob = true;
             if (this.#trigger === undefined) {
                 byob = false;
-                this.#trigger = document.createElement('button');
-                this.#trigger.type = 'button';
-                this.#trigger.classList.add('be-clonable-trigger');
-                this.#trigger.ariaLabel = 'Clone this.';
-                this.#trigger.title = 'Clone this.';
-                self.insertAdjacentElement(triggerInsertPosition, this.#trigger);
+                const trigger = document.createElement('button');
+                trigger.type = 'button';
+                trigger.classList.add('be-clonable-trigger');
+                trigger.ariaLabel = 'Clone this.';
+                trigger.title = 'Clone this.';
+                enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
+                this.#trigger = new WeakRef(trigger);
             }
-            returnObjMold[1].beCloned.of = this.#trigger;
-            return returnObjMold;
+            return [{
+                    resolved: true,
+                    byob
+                }, {
+                    beCloned: {
+                        on: 'click',
+                        of: this.#trigger?.deref()
+                    }
+                }];
         }
         else {
             //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
@@ -29,45 +38,34 @@ export class BeClonable extends EventTarget {
     }
     setBtnContent({ buttonContent }) {
         if (this.#trigger !== undefined) {
-            this.#trigger.innerHTML = buttonContent; //TODO:  sanitize
+            this.#trigger.deref().innerHTML = buttonContent;
         }
     }
-    async beCloned({ self, cloneInsertPosition }) {
-        const clone = self.cloneNode(true);
-        //TODO:  maybe we can skip this step and use the new attach method?
-        const { beatify } = await import('be-hive/beatify.js');
-        const beHive = self.getRootNode().querySelector('be-hive');
-        if (beHive !== null) {
-            beatify(clone, beHive);
-        }
-        self.insertAdjacentElement(cloneInsertPosition, clone);
-    }
-    finale() {
-        this.#trigger = undefined;
+    beCloned(self) {
+        const { enhancedElement, cloneInsertPosition } = self;
+        const clone = enhancedElement.cloneNode(true);
+        enhancedElement.insertAdjacentElement(cloneInsertPosition, clone);
     }
 }
 const tagName = 'be-clonable';
 const ifWantsToBe = 'clonable';
 const upgrade = '*';
-define({
+const xe = new XE({
     config: {
         tagName,
         propDefaults: {
-            ifWantsToBe,
-            upgrade,
-            finale: 'finale',
-            virtualProps: ['cloneInsertPosition', 'triggerInsertPosition', 'buttonContent'],
-            proxyPropDefaults: {
-                byob: true,
-                triggerInsertPosition: 'beforeend',
-                cloneInsertPosition: 'afterend',
-                buttonContent: '&#10063;'
-            }
+            ...propDefaults,
+            byob: true,
+            triggerInsertPosition: 'beforeend',
+            cloneInsertPosition: 'afterend',
+            buttonContent: '&#10063;'
+        },
+        propInfo: {
+            ...propInfo
         },
         actions: {
             addCloneBtn: {
                 ifAllOf: ['triggerInsertPosition'],
-                returnObjMold: [{ resolved: true, byob: true }, { beCloned: { on: 'click', of: 'tbd' } }]
             },
             setBtnContent: {
                 ifAllOf: ['buttonContent'],
@@ -75,8 +73,6 @@ define({
             }
         }
     },
-    complexPropDefaults: {
-        controller: BeClonable
-    }
+    superclass: BeClonable
 });
 register(ifWantsToBe, upgrade, tagName);

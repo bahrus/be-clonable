@@ -9,7 +9,7 @@
 		"watch": true
 	},
 	"files": [
-		"be-clonable2.ts"
+		"be-clonable.ts"
 	],
 	"exclude":[
 		"node_modules"

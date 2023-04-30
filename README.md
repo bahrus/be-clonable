@@ -31,8 +31,7 @@ In fact, it is a little better from a performance point of view to manually add 
 
 
 
-The button as well as the event handler can be attached during template instantiation, if using the power of make from the [trans-render](https://github.com/bahrus/trans-render) package.
-
+The button as well as the event handler can be attached programmatically without the need for the custom attribute.  For example, during template instantiation, this may be the optimal approach, and is explicitly supported by the [trans-render](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally) template instantiation library.
 
 
 ## Viewing Locally
