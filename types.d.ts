@@ -1,30 +1,30 @@
-import {BeDecoratedProps, MinimalProxy, EventConfigs} from 'be-decorated/types';
+import { ActionOnEventConfigs } from "trans-render/froop/types";
+import {IBE} from 'be-enhanced/types';
 
-export interface EndUserProps {
+export interface EndUserProps extends IBE{
     triggerInsertPosition?: InsertPosition;
     cloneInsertPosition?: InsertPosition;
     buttonContent?: string;
 }
 
-export interface VirtualProps extends EndUserProps, MinimalProxy{
+export interface AllProps extends EndUserProps{
     byob?: boolean,
 }
 
-export type Proxy = Element & VirtualProps;
 
-export interface ProxyProps extends VirtualProps{
-    proxy: Proxy;
-}
+export type AP = AllProps;
 
-export type PP = ProxyProps;
+export type PAP = Partial<AP>;
 
-export type PPP = Partial<ProxyProps>;
+export type ProPAP = Promise<PAP>;
 
-export type PPE = [Partial<PP>, EventConfigs<Proxy, Actions>];
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>]
+
+export type ProPOA = Promise<POA | undefined>;
 
 export interface Actions{
-    addCloneBtn(pp: PP, returnObjMold: PPE): Promise<PPE | void>;
-    setBtnContent(pp: PP): void;
-    beCloned(pp: PP): void;
-    finale(): void;
+    addCloneBtn(self: this): ProPOA;
+    setBtnContent(self: this): void;
+    beCloned(self: this): void;
+    //finale(): void;
 }

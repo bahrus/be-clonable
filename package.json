@@ -6,7 +6,8 @@
     "web-component",
     "custom-element",
     "custom-elements",
-    "clone"
+    "clone",
+    "enhancement"
   ],
   "description": "Adds a button to any element that allows the element to be cloned.",
   "main": "be-clonable.js",
@@ -16,7 +17,8 @@
     "./be-clonable.js": "./be-clonable.js"
   },
   "files": [
-    "*.*"
+    "*.js",
+    "types.d.ts"
   ],
   "types": "types.d.ts",
   "scripts": {
@@ -25,14 +27,14 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-decorated": "0.0.212",
-    "be-hive": "0.0.79",
-    "trans-render": "0.0.653"
+    "be-enhanced": "0.0.14",
+    "be-hive": "0.0.92",
+    "trans-render": "0.0.678",
+    "xtal-element": "0.0.559"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.4",
-    "@playwright/test": "1.29.1",
-    "@skypack/package-check": "0.2.2"
+    "@playwright/test": "1.33.0",
+    "may-it-serve": "0.0.5"
   },
   "repository": {
     "type": "git",
