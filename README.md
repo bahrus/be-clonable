@@ -5,7 +5,7 @@ be-clonable is a web component decorator, that adds or hydrates a triggering but
 [![Playwright Tests](https://github.com/bahrus/be-clonable/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-clonable/actions/workflows/CI.yml)
 [![NPM version](https://badge.fury.io/js/be-clonable.png)](http://badge.fury.io/js/be-clonable)
 
-Size of package, including custom element behavior framework (be-decorated): [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-clonable?style=for-the-badge)](https://bundlephobia.com/result?p=be-clonable)
+Size of package, including custom element behavior framework (be-enhanced/be-hive): [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-clonable?style=for-the-badge)](https://bundlephobia.com/result?p=be-clonable)
 
 Size of new code in this package: <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-clonable?compression=gzip">
 
