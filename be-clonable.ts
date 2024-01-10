@@ -2,7 +2,6 @@ import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
 import {BEConfig} from 'be-enhanced/types';
 import {XE} from 'xtal-element/XE.js';
 import {Actions, AllProps, AP, PAP, ProPAP, POA, ProPOA} from './types';
-import {register} from 'be-hive/register.js';
 
 export class BeClonable extends BE<AP, Actions> implements Actions{
     #trigger: WeakRef<HTMLButtonElement> | undefined;
@@ -55,9 +54,8 @@ export class BeClonable extends BE<AP, Actions> implements Actions{
 
 export interface BeClonable extends AP{}
 
-const tagName = 'be-clonable';
-const ifWantsToBe = 'clonable';
-const upgrade = '*';
+export const tagName = 'be-clonable';
+
 
 const xe = new XE<AP, Actions>({
     config: {
@@ -84,5 +82,3 @@ const xe = new XE<AP, Actions>({
     },
     superclass: BeClonable
 });
-
-register(ifWantsToBe, upgrade, tagName);

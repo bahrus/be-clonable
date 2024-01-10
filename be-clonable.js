@@ -1,6 +1,5 @@
 import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
-import { register } from 'be-hive/register.js';
 export class BeClonable extends BE {
     #trigger;
     async addCloneBtn(self) {
@@ -47,9 +46,7 @@ export class BeClonable extends BE {
         enhancedElement.insertAdjacentElement(cloneInsertPosition, clone);
     }
 }
-const tagName = 'be-clonable';
-const ifWantsToBe = 'clonable';
-const upgrade = '*';
+export const tagName = 'be-clonable';
 const xe = new XE({
     config: {
         tagName,
@@ -75,4 +72,3 @@ const xe = new XE({
     },
     superclass: BeClonable
 });
-register(ifWantsToBe, upgrade, tagName);
