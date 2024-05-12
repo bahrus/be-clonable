@@ -5,6 +5,26 @@ import {MountObserver} from 'mount-observer/MountObserver.js';
 import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 
 export class BeClonable extends BE implements Actions{
+    static override config: BEConfig<AllProps & BEAllProps, Actions & IEnhancement, any> = {
+        propDefaults:{
+            byob: true,
+            triggerInsertPosition: 'beforeend',
+            cloneInsertPosition: 'afterend',
+            buttonContent: '&#10063;'
+        },
+        propInfo: {
+            ...(beCnfg.propInfo),
+        },
+        actions:{
+            addCloneBtn: {
+                ifAllOf: ['triggerInsertPosition'],
+            }, 
+            setBtnContent: {
+                ifAllOf: ['buttonContent'],
+                ifNoneOf: ['byob'],
+            }
+        }
+    };
     #trigger: WeakRef<HTMLButtonElement> | undefined;
     async addCloneBtn(self: this): ProPOA {
         if(this.#trigger === undefined){
