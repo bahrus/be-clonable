@@ -1,10 +1,9 @@
-import {config as beCnfg} from 'be-enhanced/config.js';
-import {BE, BEConfig} from 'be-enhanced/BE.js';
-import {Actions, AllProps, AP, ProPOA, POA} from './types';
-import {MountObserver} from 'mount-observer/MountObserver.js';
-import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA, ProPOA} from '../types';
 
-export class BeClonable extends BE implements Actions{
+export class BeClonable extends BE<AP, Actions> implements Actions{
     #trigger: WeakRef<HTMLButtonElement> | undefined;
     async addCloneBtn(self: this): ProPOA {
         if(this.#trigger === undefined){
@@ -54,3 +53,32 @@ export class BeClonable extends BE implements Actions{
 }
 
 export interface BeClonable extends AP{}
+
+export const tagName = 'be-clonable';
+
+
+const xe = new XE<AP, Actions>({
+    config: {
+        tagName,
+        propDefaults: {
+            ...propDefaults,
+            byob: true,
+            triggerInsertPosition: 'beforeend',
+            cloneInsertPosition: 'afterend',
+            buttonContent: '&#10063;'
+        },
+        propInfo: {
+            ...propInfo
+        },
+        actions: {
+            addCloneBtn: {
+                ifAllOf: ['triggerInsertPosition'],
+            },
+            setBtnContent: {
+                ifAllOf: ['buttonContent'],
+                ifNoneOf: ['byob'],
+            }
+        }
+    },
+    superclass: BeClonable
+});

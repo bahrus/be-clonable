@@ -1,7 +1,7 @@
 import { ActionOnEventConfigs } from "trans-render/froop/types";
-import {IBE} from 'be-enhanced/types';
+import { IEnhancement, BEAllProps } from 'trans-render/be/types';
 
-export interface EndUserProps extends IBE{
+export interface EndUserProps extends IEnhancement{
     triggerInsertPosition?: InsertPosition;
     cloneInsertPosition?: InsertPosition;
     buttonContent?: string;
@@ -26,5 +26,4 @@ export interface Actions{
     addCloneBtn(self: this): ProPOA;
     setBtnContent(self: this): void;
     beCloned(self: this): void;
-    //finale(): void;
 }

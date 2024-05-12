@@ -1,8 +1,18 @@
-import {register} from 'be-hive/register.js';
-import {tagName } from './be-clonable.js';
-import './be-clonable.js';
+import './behance.js';
+import {BeHive} from 'be-hive/be-hive.js';
 
-const ifWantsToBe = 'clonable';
-const upgrade = '*';
-
-register(ifWantsToBe, upgrade, tagName);
+BeHive.registry.register({
+    base: 'be-clonable',
+    enhPropKey: 'beClonable',
+    map: {
+        '0.0': 'ni'
+    },
+    do: {
+        mount:{
+            import: async() => {
+                const {BeClonable} = await import('./be-clonable.js');
+                return BeClonable;
+            }
+        }
+    }
+});
