@@ -10,55 +10,48 @@ export class BeClonable extends BE {
         },
         propInfo: {
             ...(beCnfg.propInfo),
+            trigger: {
+                ro: true,
+            }
         },
         actions: {
             addCloneBtn: {
                 ifAllOf: ['triggerInsertPosition'],
             },
             setBtnContent: {
-                ifAllOf: ['buttonContent'],
+                ifAllOf: ['buttonContent', 'trigger'],
                 ifNoneOf: ['byob'],
             }
+        },
+        handlers: {
+            trigger_to_beCloned_on: 'click'
         }
     };
-    #trigger;
     async addCloneBtn(self) {
-        if (this.#trigger === undefined) {
-            //the check above is unlikely to ever fail.
-            const { triggerInsertPosition, enhancedElement } = self;
-            const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
-            const trigger = findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger');
-            if (trigger !== null)
-                this.#trigger = new WeakRef(trigger);
-            let byob = true;
-            if (this.#trigger === undefined) {
-                byob = false;
-                const trigger = document.createElement('button');
-                trigger.type = 'button';
-                trigger.classList.add('be-clonable-trigger');
-                trigger.ariaLabel = 'Clone this.';
-                trigger.title = 'Clone this.';
-                enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
-                this.#trigger = new WeakRef(trigger);
-            }
-            return [{
-                    resolved: true,
-                    byob
-                }, {
-                    beCloned: {
-                        on: 'click',
-                        of: this.#trigger?.deref()
-                    }
-                }];
+        const { triggerInsertPosition, enhancedElement, buttonContent } = self;
+        const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
+        let trigger = findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger');
+        let byob = true;
+        if (trigger === null) {
+            byob = false;
+            trigger = document.createElement('button');
+            trigger.type = 'button';
+            trigger.classList.add('be-clonable-trigger');
+            trigger.ariaLabel = 'Clone this.';
+            trigger.title = 'Clone this.';
+            enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
-        else {
-            //can't think of a scenario where consumer would want to change the trigger position midstream, so not bothering to do anything here
-        }
+        return {
+            trigger: new WeakRef(trigger),
+            resolved: true,
+            byob
+        };
     }
-    setBtnContent({ buttonContent }) {
-        if (this.#trigger !== undefined) {
-            this.#trigger.deref().innerHTML = buttonContent;
-        }
+    setBtnContent({ buttonContent, trigger }) {
+        const btn = trigger?.deref();
+        if (btn === undefined)
+            return;
+        btn.innerHTML = buttonContent;
     }
     beCloned(self) {
         const { enhancedElement, cloneInsertPosition } = self;
