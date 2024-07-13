@@ -1,4 +1,4 @@
-# be-clonable
+# be-clonable (🧬)
 
 be-clonable is a web component decorator, that adds or hydrates a triggering button, and enables that button to clone the adorned element.
 
