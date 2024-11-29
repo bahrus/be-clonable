@@ -19,6 +19,15 @@ Size of new code in this package: <img src="http://img.badgesize.io/https://cdn.
 </label>
 ```
 
+or, alternatively:
+
+```html
+<label 🧬>
+    <input type="checkbox" name="">
+    <span>Check me out</span>
+</label>
+```
+
 In fact, it is a little better from a performance point of view to manually add the button to go along with the attribute, to save the browser or server from having to render it.
 
 ```html
