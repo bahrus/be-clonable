@@ -26,7 +26,7 @@ export class BeClonable extends BE {
                 ro: true,
             }
         },
-        
+        positractions: [resolved, rejected],
         actions: {
             addCloneBtn: {
                 ifAllOf: ['triggerInsertPosition'],
@@ -40,6 +40,8 @@ export class BeClonable extends BE {
             trigger_to_beCloned_on: 'click'
         }
     };
+
+    de = de;
     /**
      * 
      * @param {BAP} self 
