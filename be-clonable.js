@@ -18,7 +18,7 @@ class BeClonable extends BE {
             byob: true,
             triggerInsertPosition: 'beforeend',
             cloneInsertPosition: 'afterend',
-            buttonContent: '&#10063;'
+            buttonContent: '⿻'
         },
         propInfo: {
             ...propInfo,
@@ -77,7 +77,8 @@ class BeClonable extends BE {
         const btn = trigger?.deref();
         if (btn === undefined)
             return;
-        btn.innerHTML = buttonContent;
+        //TODO:  support trusted types
+        btn.textContent = buttonContent;
     }
     beCloned(self) {
         const { enhancedElement, cloneInsertPosition } = self;

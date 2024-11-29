@@ -16,7 +16,7 @@
     ".": "./be-clonable.js",
     "./be-clonable.js": "./be-clonable.js",
     "./emc.js": "./emc.js",
-    "./🧬.js": "./🧬.js"
+    "./⿻.js": "./⿻.js"
   },
   "files": [
     "*.js",

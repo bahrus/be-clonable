@@ -1,16 +1,16 @@
 // @ts-check
 import { MountObserver, seed, BeHive } from 'be-hive/be-hive.js';
 import { emc as baseEMC } from './emc.js';
-/** @import {AP} from './ts-refs/be-clonable/types.d.ts'; */
-/** @import {EMC} from './ts-refs/trans-render/be/types.d.ts' */
+/** @import {AP} from './ts-refs/be-clonable/types'; */
+/** @import {EMC} from './ts-refs/trans-render/be/types' */
 
 /**
  * @type {EMC<any, AP>}
  */
 export const emc = {
     ...baseEMC,
-    base: '🧬',
-    enhPropKey: '🧬',
+    base: '⿻',
+    enhPropKey: '⿻',
 };
 const mose = seed(emc);
 MountObserver.synthesize(document, BeHive, mose);

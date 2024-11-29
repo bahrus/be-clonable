@@ -1,4 +1,4 @@
-# be-clonable (🧬)
+# be-clonable (⿻)
 
 be-clonable is a web component decorator, that adds or hydrates a triggering button, and enables that button to clone the adorned element.
 
@@ -22,7 +22,7 @@ Size of new code in this package: <img src="http://img.badgesize.io/https://cdn.
 or, alternatively:
 
 ```html
-<label 🧬>
+<label ⿻>
     <input type="checkbox" name="">
     <span>Check me out</span>
 </label>
