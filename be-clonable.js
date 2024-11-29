@@ -9,7 +9,7 @@ import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
 /**
  * @implements {Actions}
  */
-export class BeClonable extends BE {
+class BeClonable extends BE {
     /**
      * @type {BEConfig<BAP, Actions & IEnhancement, any>}
      */
@@ -67,7 +67,13 @@ export class BeClonable extends BE {
             byob
         });
     }
-    setBtnContent({ buttonContent, trigger }) {
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
+    setBtnContent(self) {
+        const { buttonContent, trigger } = self;
         const btn = trigger?.deref();
         if (btn === undefined)
             return;
@@ -79,3 +85,6 @@ export class BeClonable extends BE {
         enhancedElement.insertAdjacentElement(cloneInsertPosition, clone);
     }
 }
+
+await BeClonable.bootUp();
+export { BeClonable }

@@ -8,7 +8,7 @@ const emc = {
     },
     enhPropKey: 'beClonable',
     importEnh: async () => {
-        const { BeClonable } = await import('./behance.js');
+        const { BeClonable } = await import('./be-clonable.js');
         return BeClonable;
     }
 };
