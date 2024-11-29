@@ -4,7 +4,7 @@ import { BE } from 'be-enhanced/BE.js';
 import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
 
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
-/** @import {Actions, PAP, AllProps, AP, BAP, ITyper} from './ts-refs/be-clonable/types.d.ts' */;
+/** @import {Actions, PAP, AllProps, AP, BAP} from './ts-refs/be-clonable/types.d.ts' */;
 
 /**
  * @implements {Actions}
