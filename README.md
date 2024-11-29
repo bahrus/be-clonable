@@ -10,7 +10,7 @@ Size of package, including custom element behavior framework (be-enhanced/be-hiv
 Size of new code in this package: <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-clonable?compression=gzip">
 
 
-## Syntax
+## Vernacular
 
 ```html
 <label be-clonable>
