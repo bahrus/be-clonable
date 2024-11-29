@@ -1,8 +1,12 @@
-import { BeHive } from 'be-hive/be-hive.js';
-import { MountObserver } from 'mount-observer/MountObserver.js';
-const base = 'be-clonable';
+// @ts-check
+import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
+/** @import {EMC} from './ts-refs/trans-render/be/types' */
+
+/**
+ * @type {EMC}
+ */
 export const emc = {
-    base,
+    base: 'be-clonable',
     // map: {
     //     '0.0': 'ni'
     // },
@@ -12,7 +16,5 @@ export const emc = {
         return BeClonable;
     }
 };
-const mose = document.createElement('script');
-mose.id = base;
-mose.synConfig = emc;
+const mose = seed(emc);
 MountObserver.synthesize(document, BeHive, mose);
