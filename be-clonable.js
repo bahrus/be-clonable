@@ -1,6 +1,18 @@
-import { config as beCnfg } from 'be-enhanced/config.js';
+// @ts-check
+import { resolved, rejected, propInfo} from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
+import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
+
+/** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
+/** @import {Actions, PAP, AllProps, AP, BAP, ITyper} from './ts-refs/be-clonable/types.d.ts' */;
+
+/**
+ * @implements {Actions}
+ */
 export class BeClonable extends BE {
+    /**
+     * @type {BEConfig<BAP, Actions & IEnhancement, any>}
+     */
     static config = {
         propDefaults: {
             byob: true,
@@ -9,11 +21,12 @@ export class BeClonable extends BE {
             buttonContent: '&#10063;'
         },
         propInfo: {
-            ...(beCnfg.propInfo),
+            ...propInfo,
             trigger: {
                 ro: true,
             }
         },
+        
         actions: {
             addCloneBtn: {
                 ifAllOf: ['triggerInsertPosition'],
@@ -27,10 +40,15 @@ export class BeClonable extends BE {
             trigger_to_beCloned_on: 'click'
         }
     };
+    /**
+     * 
+     * @param {BAP} self 
+     * @returns 
+     */
     async addCloneBtn(self) {
         const { triggerInsertPosition, enhancedElement, buttonContent } = self;
         const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
-        let trigger = findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger');
+        let trigger = /** @type {HTMLButtonElement | null} */ (findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger'));
         let byob = true;
         if (trigger === null) {
             byob = false;
@@ -41,11 +59,11 @@ export class BeClonable extends BE {
             trigger.title = 'Clone this.';
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
-        return {
+        return /** @type {PAP} */ ({
             trigger: new WeakRef(trigger),
             resolved: true,
             byob
-        };
+        });
     }
     setBtnContent({ buttonContent, trigger }) {
         const btn = trigger?.deref();
