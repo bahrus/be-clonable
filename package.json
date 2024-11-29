@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.49.0",
-    "may-it-serve": "0.0.8"
+    "ssi-server": "0.0.1"
   },
   "repository": {
     "type": "git",
