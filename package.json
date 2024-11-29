@@ -14,7 +14,9 @@
   "module": "be-clonable.js",
   "exports": {
     ".": "./be-clonable.js",
-    "./be-clonable.js": "./be-clonable.js"
+    "./be-clonable.js": "./be-clonable.js",
+    "./emc.js": "./emc.js",
+    "./🧬.js": "./🧬.js"
   },
   "files": [
     "*.js",
