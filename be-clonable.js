@@ -11,7 +11,7 @@ import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
  */
 class BeClonable extends BE {
     /**
-     * @type {BEConfig<BAP, Actions & IEnhancement, any>}
+     * @type {BEConfig<BAP, Actions & IEnhancement>}
      */
     static config = {
         propDefaults: {
