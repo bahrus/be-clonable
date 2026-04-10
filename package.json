@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "be-hive": "0.1.10",
-    "mount-observer": "0.0.16",
+    "mount-observer": "0.1.26",
     "roundabout-lib": "0.0.3"
   },
   "devDependencies": {
