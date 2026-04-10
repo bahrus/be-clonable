@@ -24,7 +24,7 @@
   ],
   "types": "types.d.ts",
   "scripts": {
-    "build": "node build-emc.mjs > emc.json && node build-⿻.mjs > ⿻.json",
+    "build": "node emc.mjs > emc.json && node ⿻.mjs > ⿻.json",
     "serve": "node ./node_modules/spa-ssi/serve.js",
     "test": "playwright test",
     "safari": "npx playwright wk http://localhost:8000",
