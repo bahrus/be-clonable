@@ -3,7 +3,7 @@ import {emc} from './emc.mjs';
 
 /** @import {Actions, PAP, AllProps, AP} from './types/be-clonable/types' */;
 /** @import {RoundaboutOptions} from './types/roundabout/types' */;
-/** @import {ElementEnhancementGateway} from './types/mount-observer/types' */;
+/** @import {ElementEnhancementGateway} from './types/assign-gingerly/types' */;
 
 /**
  * @implements {Actions}
