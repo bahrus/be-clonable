@@ -1,0 +1,12 @@
+{
+    "enhConfig": {
+        "enhKey": "⿻",
+        "spawn": "be-clonable/be-clonable.js",
+        "withAttrs": {
+            "base": "⿻",
+            "triggerInsertPosition": "${base}-trigger-insert-position",
+            "cloneInsertPosition": "${base}-clone-insert-position",
+            "buttonContent": "${base}-button-content"
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "enhConfig": {
+        "enhKey": "BeClonable",
+        "spawn": "be-clonable/be-clonable.js",
+        "withAttrs": {
+            "base": "be-clonable",
+            "triggerInsertPosition": "${base}-trigger-insert-position",
+            "cloneInsertPosition": "${base}-clone-insert-position",
+            "buttonContent": "${base}-button-content"
+        }
+    },
+    "customData": {
+        "actions": {
+            "addCloneBtn": {
+                "ifAllOf": [
+                    "triggerInsertPosition"
+                ]
+            },
+            "setBtnContent": {
+                "ifAllOf": [
+                    "buttonContent",
+                    "trigger"
+                ],
+                "ifNoneOf": [
+                    "byob"
+                ]
+            }
+        },
+        "handlers": {
+            "trigger_to_beCloned_on": "click"
+        },
+        "compacts": {
+            "when_resolved_changes_dispatch": "resolved"
+        }
+    }
+}

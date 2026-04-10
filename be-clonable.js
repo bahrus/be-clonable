@@ -1,14 +1,19 @@
 // @ts-check
-import {emc} from './emc.mjs';
+/**
+ * @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions>>}
+ */
+import emc from './emc.json' with {type: 'json'};
 
 /** @import {Actions, PAP, AllProps, AP} from './types/be-clonable/types' */;
 /** @import {RoundaboutOptions} from './types/roundabout/types' */;
 /** @import {ElementEnhancementGateway} from './types/assign-gingerly/types' */;
+/** @import {EMC} from './types/mount-observer/types' */;
+/** @import {RAConfig} from './types/roundabout/types' */;
 
 /**
  * @implements {Actions}
  */
-class BeClonable {
+export class BeClonable {
     /**
      * @type {WeakRef<Element & ElementEnhancementGateway>}
      */
@@ -64,23 +69,23 @@ class BeClonable {
      */
     async addCloneBtn(self) {
         const { triggerInsertPosition, enhancedElement, buttonContent } = self;
-        const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
-        let trigger = /** @type {HTMLButtonElement | null} */ (findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger'));
-        let byob = true;
-        if (trigger === null) {
-            byob = false;
-            trigger = document.createElement('button');
-            trigger.type = 'button';
-            trigger.classList.add('be-clonable-trigger');
-            trigger.ariaLabel = 'Clone this.';
-            trigger.title = 'Clone this.';
-            enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
-        }
-        return /** @type {PAP} */ ({
-            trigger: new WeakRef(trigger),
-            resolved: true,
-            byob
-        });
+        //const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
+        // let trigger = /** @type {HTMLButtonElement | null} */ (findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger'));
+        // let byob = true;
+        // if (trigger === null) {
+        //     byob = false;
+        //     trigger = document.createElement('button');
+        //     trigger.type = 'button';
+        //     trigger.classList.add('be-clonable-trigger');
+        //     trigger.ariaLabel = 'Clone this.';
+        //     trigger.title = 'Clone this.';
+        //     enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
+        // }
+        // return /** @type {PAP} */ ({
+        //     trigger: new WeakRef(trigger),
+        //     resolved: true,
+        //     byob
+        // });
     }
 
     /**
@@ -108,4 +113,3 @@ class BeClonable {
     }
 }
 
-export { BeClonable }
