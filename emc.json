@@ -13,7 +13,8 @@
         "actions": {
             "addCloneBtn": {
                 "ifAllOf": [
-                    "triggerInsertPosition"
+                    "triggerInsertPosition",
+                    "enhancedElement"
                 ]
             },
             "setBtnContent": {
@@ -29,8 +30,12 @@
         "handlers": {
             "trigger_to_beCloned_on": "click"
         },
-        "compacts": {
-            "when_resolved_changes_dispatch": "resolved"
+        "compacts": {},
+        "weakRef": {
+            "properties": [
+                "enhancedElement",
+                "trigger"
+            ]
         }
     }
 }
