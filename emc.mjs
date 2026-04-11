@@ -32,7 +32,7 @@ export const emc = {
             trigger_to_beCloned_on: 'click'
         },
         compacts:{
-            //when_resolved_changes_dispatch: 'resolved',
+            when_resolved_changes_dispatch: 'resolved',
         },
         weakRef: {
             properties: ['enhancedElement', 'trigger']
