@@ -68,10 +68,7 @@ export class BeClonable {
             byob = false;
             trigger = document.createElement('button');
             Object.assign(trigger, customData.customData.triggerSettings);
-            //trigger.type = 'button';
             trigger.classList.add('be-clonable-trigger');
-            //trigger.ariaLabel = 'Clone this.';
-            //trigger.title = 'Clone this.';
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
         return /** @type {PAP} */ ({
@@ -101,7 +98,7 @@ export class BeClonable {
      */
     beCloned(self) {
         const { enhancedElement, cloneInsertPosition } = self;
-        const clone = enhancedElement.cloneNode(true);
+        const clone = /** @type {Element} */ (enhancedElement.cloneNode(true));
         enhancedElement.insertAdjacentElement(cloneInsertPosition, clone);
     }
 }
