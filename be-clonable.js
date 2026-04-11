@@ -73,7 +73,7 @@ export class BeClonable {
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
         return /** @type {PAP} */ ({
-            trigger: new WeakRef(trigger),
+            trigger,
             resolved: true,
             byob
         });
@@ -86,7 +86,7 @@ export class BeClonable {
      */
     setBtnContent(self) {
         const { buttonContent, trigger } = self;
-        const btn = trigger?.deref();
+        const btn = trigger;
         if (btn === undefined)
             return;
         //TODO:  support trusted types
