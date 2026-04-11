@@ -69,23 +69,23 @@ export class BeClonable {
      */
     async addCloneBtn(self) {
         const { triggerInsertPosition, enhancedElement, buttonContent } = self;
-        //const { findAdjacentElement } = await import('trans-render/lib/findAdjacentElement.js');
-        // let trigger = /** @type {HTMLButtonElement | null} */ (findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger'));
-        // let byob = true;
-        // if (trigger === null) {
-        //     byob = false;
-        //     trigger = document.createElement('button');
-        //     trigger.type = 'button';
-        //     trigger.classList.add('be-clonable-trigger');
-        //     trigger.ariaLabel = 'Clone this.';
-        //     trigger.title = 'Clone this.';
-        //     enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
-        // }
-        // return /** @type {PAP} */ ({
-        //     trigger: new WeakRef(trigger),
-        //     resolved: true,
-        //     byob
-        // });
+        const { findAdjacentElement } = await import('be-hive/findAdjacentElement.js');
+        let trigger = /** @type {HTMLButtonElement | null} */ (findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger'));
+        let byob = true;
+        if (trigger === null) {
+            byob = false;
+            trigger = document.createElement('button');
+            trigger.type = 'button';
+            trigger.classList.add('be-clonable-trigger');
+            trigger.ariaLabel = 'Clone this.';
+            trigger.title = 'Clone this.';
+            enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
+        }
+        return /** @type {PAP} */ ({
+            trigger: new WeakRef(trigger),
+            resolved: true,
+            byob
+        });
     }
 
     /**
