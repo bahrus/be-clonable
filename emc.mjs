@@ -24,7 +24,7 @@ export const emc = {
                 ifAllOf: ['triggerInsertPosition', 'enhancedElement'],
             },
             setBtnContent: {
-                ifAllOf: ['buttonContent', 'trigger'],
+                ifAllOf: ['buttonContent', 'trigger', 'enhancedElement'],
                 ifNoneOf: ['byob'],
             }
         },
