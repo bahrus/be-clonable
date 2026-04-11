@@ -14,16 +14,16 @@ import emc from './emc.json' with {type: 'json'};
  * @implements {Actions}
  */
 export class BeClonable {
-    /**
-     * @type {WeakRef<Element & ElementEnhancementGateway>}
-     */
-    #enhancedElementRef;
+    // /**
+    //  * @type {WeakRef<Element & ElementEnhancementGateway>}
+    //  */
+    // #enhancedElementRef;
 
-    get enhancedElement(){
-        const ref = this.#enhancedElementRef.deref();
-        if(ref === undefined) throw 404;
-        return ref;
-    }
+    // get enhancedElement(){
+    //     const ref = this.#enhancedElementRef.deref();
+    //     if(ref === undefined) throw 404;
+    //     return ref;
+    // }
 
     /**
      * 
@@ -32,17 +32,18 @@ export class BeClonable {
      * @param {AllProps} initVals 
      */
     constructor(enhancedElement, ctx, initVals){
-        this.#enhancedElementRef = new WeakRef(enhancedElement);
+        //this.#enhancedElementRef = new WeakRef(enhancedElement);
         const self = /** @type {AllProps & Actions} */(/** @type {unknown} */(this));
-        self.init(self, initVals);
+        self.init(self, enhancedElement, initVals);
     }
 
     /**
      * @this {AllProps & Actions}
      * @param {AllProps} self 
+     * @param {Element & ElementEnhancementGateway} enhancedElement 
      * @param {PAP} initVals 
      */
-    async init(self, initVals){
+    async init(self, enhancedElement, initVals){
         const {customData} = emc;
         /**
          * @type {RoundaboutOptions}
@@ -55,6 +56,7 @@ export class BeClonable {
         (await import('assign-gingerly/assignGingerly.js')).assignGingerly(self, {
             //set default prop values below
             byob: true,
+            enhancedElement,
             triggerInsertPosition: 'beforeend',
             cloneInsertPosition: 'afterend',
             buttonContent: '⿻',
