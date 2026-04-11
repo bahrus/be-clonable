@@ -36,6 +36,12 @@ export const emc = {
         },
         weakRef: {
             properties: ['enhancedElement', 'trigger']
+        },
+        defaultPropVals: {
+            byob: true,
+            triggerInsertPosition: 'beforeend',
+            cloneInsertPosition: 'afterend',
+            buttonContent: '⿻',
         }
     }
 }

@@ -34,6 +34,7 @@ export class BeClonable {
      */
     async init(self, enhancedElement, initVals){
         const {customData} = emc;
+        const {defaultPropVals} = customData;
         /**
          * @type {RoundaboutOptions}
          */
@@ -44,11 +45,9 @@ export class BeClonable {
         await (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
         (await import('assign-gingerly/assignGingerly.js')).assignGingerly(self, {
             //set default prop values below
-            byob: true,
+            
             enhancedElement,
-            triggerInsertPosition: 'beforeend',
-            cloneInsertPosition: 'afterend',
-            buttonContent: '⿻',
+            ...defaultPropVals,
             ...initVals
         });
     }
