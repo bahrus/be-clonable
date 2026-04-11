@@ -45,6 +45,13 @@
             "triggerInsertPosition": "beforeend",
             "cloneInsertPosition": "afterend",
             "buttonContent": "⿻"
+        },
+        "customData": {
+            "triggerSettings": {
+                "type": "button",
+                "ariaLabel": "Clone this.",
+                "title": "Clone this."
+            }
         }
     }
 }

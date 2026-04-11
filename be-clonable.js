@@ -1,14 +1,17 @@
 // @ts-check
-/**
- * @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions>>}
- */
-import emc from './emc.json' with {type: 'json'};
-
-/** @import {Actions, PAP, AllProps, AP} from './types/be-clonable/types' */;
+/** @import {Actions, PAP, AllProps, AP, CustomData} from './types/be-clonable/types' */;
 /** @import {RoundaboutOptions} from './types/roundabout/types' */;
 /** @import {ElementEnhancementGateway} from './types/assign-gingerly/types' */;
 /** @import {EMC} from './types/mount-observer/types' */;
 /** @import {RAConfig} from './types/roundabout/types' */;
+/**
+ * @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions, AllProps, CustomData>>}
+ */
+import emc from './emc.json' with {type: 'json'};
+
+const {customData} = emc;
+
+
 
 /**
  * @implements {Actions}
@@ -33,7 +36,6 @@ export class BeClonable {
      * @param {PAP} initVals 
      */
     async init(self, enhancedElement, initVals){
-        const {customData} = emc;
         const {defaultPropVals} = customData;
         /**
          * @type {RoundaboutOptions}
@@ -65,10 +67,11 @@ export class BeClonable {
         if (trigger === null) {
             byob = false;
             trigger = document.createElement('button');
-            trigger.type = 'button';
+            Object.assign(trigger, customData.customData.triggerSettings);
+            //trigger.type = 'button';
             trigger.classList.add('be-clonable-trigger');
-            trigger.ariaLabel = 'Clone this.';
-            trigger.title = 'Clone this.';
+            //trigger.ariaLabel = 'Clone this.';
+            //trigger.title = 'Clone this.';
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
         return /** @type {PAP} */ ({

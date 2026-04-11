@@ -1,11 +1,11 @@
 //@ts-check
 
 /** @import {EMC} from './types/mount-observer/types' */;
-/** @import {AllProps, Actions} from './types/be-clonable/types' */
+/** @import {AllProps, Actions, CustomData} from './types/be-clonable/types' */
 /** @import {RAConfig} from './types/roundabout/types' */
 
 /**
- * @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions> >}
+ * @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions, AllProps, CustomData> >}
  */
 export const emc = {
     enhConfig: {
@@ -42,7 +42,16 @@ export const emc = {
             triggerInsertPosition: 'beforeend',
             cloneInsertPosition: 'afterend',
             buttonContent: '⿻',
+        },
+        customData: {
+            triggerSettings: {
+                type: 'button',
+                //trigger.classList.add('be-clonable-trigger');
+                ariaLabel: 'Clone this.',
+                title: 'Clone this.',
+            }
         }
+        
     }
 }
 
