@@ -14,16 +14,6 @@ import emc from './emc.json' with {type: 'json'};
  * @implements {Actions}
  */
 export class BeClonable {
-    // /**
-    //  * @type {WeakRef<Element & ElementEnhancementGateway>}
-    //  */
-    // #enhancedElementRef;
-
-    // get enhancedElement(){
-    //     const ref = this.#enhancedElementRef.deref();
-    //     if(ref === undefined) throw 404;
-    //     return ref;
-    // }
 
     /**
      * 
@@ -32,7 +22,6 @@ export class BeClonable {
      * @param {AllProps} initVals 
      */
     constructor(enhancedElement, ctx, initVals){
-        //this.#enhancedElementRef = new WeakRef(enhancedElement);
         const self = /** @type {AllProps & Actions} */(/** @type {unknown} */(this));
         self.init(self, enhancedElement, initVals);
     }
