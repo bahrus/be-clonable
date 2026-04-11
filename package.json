@@ -33,7 +33,7 @@
   "dependencies": {
     "be-hive": "0.1.11",
     "mount-observer": "0.1.26",
-    "roundabout-lib": "0.0.4",
+    "roundabout-lib": "0.0.5",
     "trans-render": "0.0.961"
   },
   "devDependencies": {
