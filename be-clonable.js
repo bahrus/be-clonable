@@ -46,9 +46,8 @@ export class BeClonable {
         };
         await (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
         (await import('assign-gingerly/assignGingerly.js')).assignGingerly(self, {
-            //set default prop values below
-            
             enhancedElement,
+            //set default prop values below
             ...defaultPropVals,
             ...initVals
         });
@@ -86,11 +85,7 @@ export class BeClonable {
      */
     setBtnContent(self) {
         const { buttonContent, trigger } = self;
-        const btn = trigger;
-        if (btn === undefined)
-            return;
-        //TODO:  support trusted types
-        btn.textContent = buttonContent;
+        trigger.textContent = buttonContent;
     }
 
     /**
