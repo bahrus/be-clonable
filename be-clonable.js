@@ -50,7 +50,7 @@ export class BeClonable {
                 ...initVals
             }
         };
-        await (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
+        (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
     }
 
     /**
