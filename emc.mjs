@@ -46,6 +46,7 @@ export const emc = {
         customData: {
             triggerSettings: {
                 type: 'button',
+                '?.classList?.add': 'be-clonable-trigger',
                 //trigger.classList.add('be-clonable-trigger');
                 ariaLabel: 'Clone this.',
                 title: 'Clone this.',
