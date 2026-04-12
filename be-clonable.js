@@ -43,14 +43,14 @@ export class BeClonable {
         const raOptions = {
             ...customData,
             vm: this,
+            initialPropVals: {
+                enhancedElement,
+                //set default prop values below
+                ...defaultPropVals,
+                ...initVals
+            }
         };
         await (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
-        (await import('assign-gingerly/assignGingerly.js')).assignGingerly(self, {
-            enhancedElement,
-            //set default prop values below
-            ...defaultPropVals,
-            ...initVals
-        });
     }
 
     /**
