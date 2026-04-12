@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "be-hive": "0.1.11",
-    "mount-observer": "0.1.26",
-    "roundabout-lib": "0.0.5",
+    "mount-observer": "0.1.27",
+    "roundabout-lib": "0.0.6",
     "trans-render": "0.0.961"
   },
   "devDependencies": {
