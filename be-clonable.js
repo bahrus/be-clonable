@@ -11,8 +11,6 @@ import emc from './emc.json' with {type: 'json'};
 
 const {customData} = emc;
 
-
-
 /**
  * @implements {Actions}
  */
