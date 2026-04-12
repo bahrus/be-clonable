@@ -96,4 +96,3 @@ export class BeClonable {
         enhancedElement.insertAdjacentElement(cloneInsertPosition, clone);
     }
 }
-
