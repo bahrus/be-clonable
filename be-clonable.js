@@ -59,16 +59,16 @@ export class BeClonable {
      * @returns 
      */
     async addCloneBtn(self) {
-        const { triggerInsertPosition, enhancedElement, buttonContent } = self;
-        const { findAdjacentElement } = await import('be-hive/findAdjacentElement.js');
-        let trigger = /** @type {HTMLButtonElement | null} */ (findAdjacentElement(triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger'));
+        const { triggerInsertPosition, enhancedElement } = self;
+        let trigger = /** @type {HTMLButtonElement | null} */ ((await import('be-hive/findAdjacentElement.js')).findAdjacentElement(
+            triggerInsertPosition, enhancedElement, 'button.be-clonable-trigger')
+        );
         let byob = true;
         if (trigger === null) {
             byob = false;
             trigger = document.createElement('button');
             const {triggerSettings, withMethods} = customData.customData;
-            Object.assign(trigger, triggerSettings, {withMethods});
-            trigger.classList.add('be-clonable-trigger');
+            (await import('assign-gingerly/assignGingerly.js')).assignGingerly(trigger, triggerSettings, {withMethods});
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
         return /** @type {PAP} */ ({
