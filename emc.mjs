@@ -50,7 +50,8 @@ export const emc = {
                 //trigger.classList.add('be-clonable-trigger');
                 ariaLabel: 'Clone this.',
                 title: 'Clone this.',
-            }
+            },
+            withMethods: ['add']
         }
         
     }

@@ -67,7 +67,8 @@ export class BeClonable {
         if (trigger === null) {
             byob = false;
             trigger = document.createElement('button');
-            Object.assign(trigger, customData.customData.triggerSettings);
+            const {triggerSettings, withMethods} = customData.customData;
+            Object.assign(trigger, triggerSettings, {withMethods});
             trigger.classList.add('be-clonable-trigger');
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
