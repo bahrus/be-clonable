@@ -42,7 +42,7 @@ export class BeClonable {
          */
         const raOptions = {
             ...customData,
-            vm: this,
+            vm: self,
             initialPropVals: {
                 enhancedElement,
                 //set default prop values below
