@@ -8,5 +8,54 @@
             "cloneInsertPosition": "${base}-clone-insert-position",
             "buttonContent": "${base}-button-content"
         }
+    },
+    "customData": {
+        "actions": {
+            "addCloneBtn": {
+                "ifAllOf": [
+                    "triggerInsertPosition",
+                    "enhancedElement"
+                ]
+            },
+            "setBtnContent": {
+                "ifAllOf": [
+                    "buttonContent",
+                    "trigger",
+                    "enhancedElement"
+                ],
+                "ifNoneOf": [
+                    "byob"
+                ]
+            }
+        },
+        "handlers": {
+            "trigger_to_beCloned_on": "click"
+        },
+        "compacts": {
+            "when_resolved_changes_dispatch": "resolved"
+        },
+        "weakRef": {
+            "properties": [
+                "enhancedElement",
+                "trigger"
+            ]
+        },
+        "defaultPropVals": {
+            "byob": true,
+            "triggerInsertPosition": "beforeend",
+            "cloneInsertPosition": "afterend",
+            "buttonContent": "⿻"
+        },
+        "customData": {
+            "triggerSettings": {
+                "type": "button",
+                "?.classList?.add": "be-clonable-trigger",
+                "ariaLabel": "Clone this.",
+                "title": "Clone this."
+            },
+            "withMethods": [
+                "add"
+            ]
+        }
     }
 }

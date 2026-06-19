@@ -1,15 +1,9 @@
 // @ts-check
 /** @import {Actions, PAP, AllProps, AP, CustomData} from './types/be-clonable/types' */;
 /** @import {RoundaboutOptions} from './types/roundabout/types' */;
-/** @import {ElementEnhancementGateway} from './types/assign-gingerly/types' */;
+/** @import {ElementEnhancementGateway, SpawnContext} from './types/assign-gingerly/types' */;
 /** @import {EMC} from './types/mount-observer/types' */;
 /** @import {RAConfig} from './types/roundabout/types' */;
-/**
- * @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions, AllProps, CustomData>>}
- */
-import emc from './emc.json' with {type: 'json'};
-
-const {customData} = emc;
 
 /**
  * @implements {Actions}
@@ -19,20 +13,22 @@ export class BeClonable {
     /**
      * @this {AllProps & Actions}
      * @param {Element & ElementEnhancementGateway} enhancedElement 
-     * @param {*} ctx 
-     * @param {AllProps} initVals 
+     * @param {SpawnContext} ctx 
+     * @param {PAP} initVals 
      */
     constructor(enhancedElement, ctx, initVals){
-        this.init(this, enhancedElement, initVals);
+        this.init(this, enhancedElement, ctx, initVals);
     }
 
     /**
      * @param {AllProps} self 
      * @param {Element & ElementEnhancementGateway} enhancedElement 
+     * @param {SpawnContext} ctx 
      * @param {PAP} initVals 
      */
-    async init(self, enhancedElement, initVals){
-        const {defaultPropVals} = customData;
+    async init(self, enhancedElement, ctx, initVals){
+        const {customData} = /** @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions, AllProps, CustomData>>} */ (ctx.emc);
+        this.#customData = customData?.customData;
         /**
          * @type {RoundaboutOptions}
          */
@@ -41,13 +37,15 @@ export class BeClonable {
             vm: self,
             initialPropVals: {
                 enhancedElement,
-                //set default prop values below
-                ...defaultPropVals,
+                ...customData?.defaultPropVals,
                 ...initVals
             }
         };
         (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
     }
+
+    /** @type {CustomData | undefined} */
+    #customData;
 
     /**
      * 
@@ -63,7 +61,7 @@ export class BeClonable {
         if (trigger === null) {
             byob = false;
             trigger = document.createElement('button');
-            const {triggerSettings, withMethods} = customData.customData;
+            const {triggerSettings, withMethods} = /** @type {CustomData} */ (this.#customData);
             (await import('assign-gingerly/assignGingerly.js')).assignGingerly(trigger, triggerSettings, {withMethods});
             enhancedElement.insertAdjacentElement(triggerInsertPosition, trigger);
         }
