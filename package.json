@@ -31,14 +31,14 @@
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "assign-gingerly": "0.0.51",
-    "be-hive": "0.1.15",
-    "mount-observer": "0.1.41",
-    "roundabout-lib": "0.0.21"
+    "assign-gingerly": "0.0.97",
+    "be-hive": "0.1.18",
+    "mount-observer": "0.1.53",
+    "roundabout-lib": "0.0.38"
   },
   "devDependencies": {
-    "@playwright/test": "1.61.0",
-    "spa-ssi": "0.0.27"
+    "@playwright/test": "1.63.0",
+    "spa-ssi": "0.0.28"
   },
   "repository": {
     "type": "git",
