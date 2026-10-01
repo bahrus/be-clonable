@@ -15,11 +15,14 @@
   "exports": {
     ".": "./be-clonable.js",
     "./be-clonable.js": "./be-clonable.js",
-    "./emc.js": "./emc.js",
-    "./⿻.js": "./⿻.js"
+    "./def.js": "./def.js",
+    "./emc.json": "./emc.json",
+    "./⿻.json": "./⿻.json"
   },
   "files": [
     "*.js",
+    "emc.json",
+    "⿻.json",
     "types.d.ts"
   ],
   "types": "types.d.ts",

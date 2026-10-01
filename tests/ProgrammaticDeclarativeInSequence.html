@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic Declarative In Sequence</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- No be-clonable attribute, and no be-hive. The config is registered first, then a property is set via the `.set` proxy, which attaches the enhancement. -->
+    <div id="container">
+        <label>
+            <input type="checkbox" name="">
+            <span>Check me out</span>
+        </label>
+    </div>
+    <div id="target"></div>
+    <script type=module>
+        import {defBeClonable} from '/def.js';
+        const subject = container.querySelector('label');
+        await defBeClonable(document.body);
+        // Only the first write needs to go through `.set` -- it triggers attachment.
+        subject.enh.set.beClonable.buttonContent = '❏';
+        const labels = () => [...container.querySelectorAll('label')];
+        const fail = reason => target.setAttribute('mark', reason);
+        setTimeout(() => {
+            const trigger = subject.querySelector('button.be-clonable-trigger');
+            if(trigger === null) return fail('no trigger button added');
+            if(trigger.textContent !== '❏') return fail(`unexpected button content ${trigger.textContent}`);
+            trigger.click();
+            setTimeout(() => {
+                if(labels().length !== 2) return fail(`expected 2 labels after first click, got ${labels().length}`);
+                const clone = labels().find(l => l !== subject);
+                if(clone !== subject.nextElementSibling) return fail('clone not inserted afterend');
+                // The clone carries no attribute, so it only works if the enhancement attached itself to it.
+                clone.querySelector('button.be-clonable-trigger').click();
+                setTimeout(() => {
+                    if(labels().length !== 3) return fail(`expected 3 labels after clicking the clone's button, got ${labels().length}`);
+                    target.setAttribute('mark', 'good');
+                }, 200);
+            }, 200);
+        }, 500);
+    </script>
+</body>
+</html>

@@ -27,8 +27,11 @@ export class BeClonable {
      * @param {PAP} initVals 
      */
     async init(self, enhancedElement, ctx, initVals){
-        const {customData} = /** @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions, AllProps, CustomData>>} */ (ctx.emc);
+        // ctx.emc is only populated when spawned via an attribute (be-hive / mount-observer).
+        // Programmatic attachment (enh.get / enh.set) only passes ctx.config -- see def.js.
+        const {customData} = /** @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions, AllProps, CustomData>>} */ (ctx.emc || ctx.config);
         this.#customData = customData?.customData;
+        if(ctx.emc === undefined) this.#programmaticConfig = ctx.config;
         /**
          * @type {RoundaboutOptions}
          */
@@ -41,11 +44,18 @@ export class BeClonable {
                 ...initVals
             }
         };
-        (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
+        await (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
+        self.initialized = true;
     }
 
     /** @type {CustomData | undefined} */
     #customData;
+
+    /**
+     * The registry item this instance was spawned from, when attached programmatically.
+     * @type {SpawnContext['config'] | undefined}
+     */
+    #programmaticConfig;
 
     /**
      * 
@@ -87,8 +97,15 @@ export class BeClonable {
      * @param {AP} self 
      */
     beCloned(self) {
-        const { enhancedElement, cloneInsertPosition } = self;
-        const clone = /** @type {Element} */ (enhancedElement.cloneNode(true));
+        const { enhancedElement, cloneInsertPosition, triggerInsertPosition, buttonContent } = self;
+        const clone = /** @type {Element & ElementEnhancementGateway} */ (enhancedElement.cloneNode(true));
         enhancedElement.insertAdjacentElement(cloneInsertPosition, clone);
+        const config = this.#programmaticConfig;
+        if(config === undefined) return; // attribute path: be-hive enhances the clone via its copied attribute
+        // Programmatic path: nothing is watching for the clone, so enhance it directly,
+        // with the same settings.  The copied button is found and reused (byob).
+        const {enhKey} = config;
+        /** @type {any} */ (clone.enh)[enhKey] = {triggerInsertPosition, cloneInsertPosition, buttonContent};
+        clone.enh.get(config);
     }
 }

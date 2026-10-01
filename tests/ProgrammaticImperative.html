@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic Imperative</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- Fully imperative attachment: no attribute, no `.set` proxy -- just enh.get(emc) plus direct property assignment, made right after attachment (cloneInsertPosition is not referenced by any action, so this also checks it isn't overwritten by its default). -->
+    <div id="container">
+        <label>
+            <input type="checkbox" name="">
+            <span>Check me out</span>
+        </label>
+    </div>
+    <div id="target"></div>
+    <script type=module>
+        import {defBeClonable} from '/def.js';
+        const subject = container.querySelector('label');
+        const emc = await defBeClonable(document.body);
+        Object.assign(subject.enh.get(emc), {
+            buttonContent: '+',
+            cloneInsertPosition: 'beforebegin',
+        });
+        const labels = () => [...container.querySelectorAll('label')];
+        const fail = reason => target.setAttribute('mark', reason);
+        setTimeout(() => {
+            const trigger = subject.querySelector('button.be-clonable-trigger');
+            if(trigger === null) return fail('no trigger button added');
+            if(trigger.textContent !== '+') return fail(`unexpected button content ${trigger.textContent}`);
+            if(subject.enh.beClonable.resolved !== true) return fail('resolved not set');
+            trigger.click();
+            setTimeout(() => {
+                if(labels().length !== 2) return fail(`expected 2 labels after first click, got ${labels().length}`);
+                const clone = labels().find(l => l !== subject);
+                if(clone !== subject.previousElementSibling) return fail('clone not inserted beforebegin');
+                // The clone carries no attribute, so it only works if the enhancement attached itself to it.
+                clone.querySelector('button.be-clonable-trigger').click();
+                setTimeout(() => {
+                    if(labels().length !== 3) return fail(`expected 3 labels after clicking the clone's button, got ${labels().length}`);
+                    target.setAttribute('mark', 'good');
+                }, 200);
+            }, 200);
+        }, 500);
+    </script>
+</body>
+</html>

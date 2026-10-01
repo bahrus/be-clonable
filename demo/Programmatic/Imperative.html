@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic imperative</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- No be-clonable attribute, and no be-hive. -->
+    <label id="label">
+        <input type="checkbox" name="">
+        <span>Check me out</span>
+    </label>
+    <script type=module>
+        import {defBeClonable} from '/def.js';
+        const emc = await defBeClonable(document.body);
+        const beClonable = label.enh.get(emc);
+        Object.assign(beClonable, {
+            buttonContent: '+',
+            cloneInsertPosition: 'beforebegin',
+        });
+        console.log(label.enh.beClonable);
+    </script>
+</body>
+</html>

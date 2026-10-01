@@ -9,7 +9,7 @@
  */
 export const emc = {
     enhConfig: {
-        enhKey: 'BeClonable',
+        enhKey: 'beClonable',
         spawn: 'be-clonable/be-clonable.js',
         withAttrs: {
             base: 'be-clonable',
@@ -31,9 +31,10 @@ export const emc = {
         handlers: {
             trigger_to_beCloned_on: 'click'
         },
-        compacts:{
-            when_resolved_changes_dispatch: 'resolved',
-        },
+        // resolved: lets callers listen for 'resolved' on the instance's propagator.
+        // cloneInsertPosition: no action references it, so it must be monitored explicitly,
+        // or a value set right after programmatic attachment is overwritten by its default.
+        propagate: ['resolved', 'cloneInsertPosition'],
         weakRef: {
             properties: ['enhancedElement', 'trigger']
         },

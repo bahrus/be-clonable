@@ -1,6 +1,6 @@
 {
     "enhConfig": {
-        "enhKey": "BeClonable",
+        "enhKey": "beClonable",
         "spawn": "be-clonable/be-clonable.js",
         "withAttrs": {
             "base": "be-clonable",
@@ -31,9 +31,10 @@
         "handlers": {
             "trigger_to_beCloned_on": "click"
         },
-        "compacts": {
-            "when_resolved_changes_dispatch": "resolved"
-        },
+        "propagate": [
+            "resolved",
+            "cloneInsertPosition"
+        ],
         "weakRef": {
             "properties": [
                 "enhancedElement",

@@ -1,0 +1,14 @@
+import { test, expect } from '@playwright/test';
+test('ProgrammaticDeclarativeOutOfSequence', async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('console', m => { if(m.type() === 'error') errors.push(m.text()); });
+    const requests = [];
+    page.on('request', r => requests.push(r.url()));
+    await page.goto('./tests/ProgrammaticDeclarativeOutOfSequence.html');
+    await page.waitForTimeout(1500);
+    await expect(page.locator('#target')).toHaveAttribute('mark', 'good');
+    expect(errors).toEqual([]);
+    // def.js registers the config directly -- no DOM monitoring is loaded.
+    expect(requests.filter(u => u.includes('mount-observer'))).toEqual([]);
+});

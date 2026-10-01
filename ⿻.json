@@ -31,9 +31,10 @@
         "handlers": {
             "trigger_to_beCloned_on": "click"
         },
-        "compacts": {
-            "when_resolved_changes_dispatch": "resolved"
-        },
+        "propagate": [
+            "resolved",
+            "cloneInsertPosition"
+        ],
         "weakRef": {
             "properties": [
                 "enhancedElement",
